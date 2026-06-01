@@ -261,7 +261,7 @@ html,body{height:100%;background:var(--bg);font-family:var(--font);color:var(--t
 <script>
 // ── TOLL DATABASE — exact coordinates and radii from your AIA file ─────────────
 const TOLL_LOCATIONS = [
-  {name:'Mersey Gateway Bridge',  lat:53.3386,  lng:-2.7035, radius:6000, type:'Toll', deadline:'midnight_next_day', url:'https://www.merseyflow.co.uk', compliance:'Pay required after crossing — ANPR cashless system', noPay:false},
+  {name:'Mersey Gateway Bridge',  lat:53.3386,  lng:-2.7035, radius:1500, type:'Toll', deadline:'midnight_next_day', url:'https://www.merseyflow.co.uk', compliance:'Pay required after crossing — ANPR cashless system', noPay:false},
   {name:'Silver Jubilee Bridge',   lat:53.3519,  lng:-2.7320, radius:1200, type:'Toll', deadline:'midnight_next_day', url:'https://www.merseyflow.co.uk', compliance:'Pay required after crossing — ANPR cashless system', noPay:false},
   {name:'Dartford Crossing',       lat:51.4540,  lng:0.2760,  radius:2200, type:'Toll', deadline:'midnight_next_day', url:'https://www.gov.uk/pay-dartford-crossing-charge', compliance:'Pay required after crossing — ANPR cashless no booths', noPay:false},
   {name:'Tyne Tunnel',             lat:54.9925,  lng:-1.4630, radius:1800, type:'Toll', deadline:'midnight_next_day', url:'https://www.tt2.co.uk/how-do-you-want-to-pay/', compliance:'Pay required by midnight the day after crossing', noPay:false},
@@ -663,6 +663,17 @@ function rDash(){
         <li>Tap + to log a journey manually instead</li>
         <li>All data stored only on your device</li>
       </ul>
+    </div>
+    <div class="section-label">Important disclaimers</div>
+    <div class="info-card">
+      <div class="info-title">Please read</div>
+      <ul class="info-list">
+        <li>Toll Mate provides location based reminders only and information may not always be accurate, complete or up to date. Users must check official sources before making any payment.</li>
+        <li>Toll Mate may fail to detect toll roads or charging zones due to GPS issues, device settings, background restrictions or technical faults. Users remain responsible for all charges and payments.</li>
+        <li>This app cannot determine if your vehicle is compliant. Always verify using official vehicle checkers before relying on alerts.</li>
+        <li>Users are redirected to official websites. Always verify details before making any payment.</li>
+        <li>Toll rules, pricing and payment deadlines may change at any time. Always refer to official sources for the most current information.</li>
+      </ul>
     </div>`;
 }
 
@@ -812,22 +823,36 @@ function rSettings(){
 
 const TC_HTML=`
 <div class="legal-text"><strong>Introduction</strong><br>These Terms and Conditions govern the use of the Toll Mate application. By using this application you agree to be bound by these terms.</div>
-<div class="legal-text"><strong>Service Description</strong><br>Toll Mate provides GPS-based reminders relating to toll roads, tunnels and charging zones. The information provided is for guidance only and does not constitute legal or financial advice.</div>
+<div class="legal-text"><strong>Service Description</strong><br>Toll Mate provides location based reminders relating to toll roads tunnels and charging zones. The information provided is for guidance only and does not constitute legal or financial advice.</div>
 <div class="legal-text"><strong>No Guarantee of Accuracy</strong><br>The application does not guarantee the accuracy, completeness or timeliness of any information including toll locations, charges, deadlines or compliance requirements.</div>
 <div class="legal-text"><strong>User Responsibility</strong><br>Users remain solely responsible for ensuring that all applicable tolls, charges and fees are identified and paid within required timeframes.</div>
 <div class="legal-text"><strong>Vehicle Compliance</strong><br>The application does not determine whether a vehicle is compliant with emissions or regulatory requirements. Users must verify compliance using official sources.</div>
 <div class="legal-text"><strong>Failure of Service</strong><br>The application may fail to detect toll roads or charging zones due to GPS inaccuracies, device limitations, software issues or external factors. No liability is accepted for missed detections.</div>
-<div class="legal-text"><strong>Limitation of Liability</strong><br>To the fullest extent permitted by law Toll Mate and its developers shall not be liable for any direct, indirect, incidental, consequential or punitive damages including fines, penalties or charges.</div>
+<div class="legal-text"><strong>Third Party Websites</strong><br>The application may direct users to third party websites. Toll Mate has no control over and accepts no responsibility for the content, accuracy or security of such external sites.</div>
+<div class="legal-text"><strong>Data Accuracy</strong><br>Toll rules, pricing, deadlines and enforcement policies may change without notice. Users must always refer to official operator or government sources.</div>
+<div class="legal-text"><strong>No Warranty</strong><br>The application is provided on an as is and as available basis without warranties of any kind whether express or implied including fitness for purpose or reliability.</div>
+<div class="legal-text"><strong>User Obligations</strong><br>Users must ensure that device permissions including location services, notifications and internet connectivity are enabled for the application to function correctly.</div>
+<div class="legal-text"><strong>Indemnity</strong><br>Users agree to indemnify and hold harmless the developer from any claims, liabilities, damages, losses or expenses arising from misuse of the application or failure to comply with applicable laws.</div>
+<div class="legal-text"><strong>Privacy and Data</strong><br>The application processes location data locally on the device. No personal data is shared with third parties unless explicitly stated.</div>
+<div class="legal-text"><strong>Service Availability</strong><br>The developer does not guarantee uninterrupted access to the application and may suspend or modify the service at any time without notice.</div>
+<div class="legal-text"><strong>Changes to Terms</strong><br>These Terms and Conditions may be updated at any time. Continued use of the application constitutes acceptance of any revised terms.</div>
 <div class="legal-text"><strong>Governing Law</strong><br>These terms shall be governed by and interpreted in accordance with the laws of England and Wales.</div>`;
 
 const GDPR_HTML=`
-<div class="legal-text"><strong>Data Collection</strong><br>Toll Mate uses device location data to detect toll roads and charging zones. Location data is processed on-device only and is never transmitted to any server.</div>
-<div class="legal-text"><strong>Personal Data</strong><br>Toll Mate does not require account creation and does not collect name, email or address.</div>
-<div class="legal-text"><strong>Location Data</strong><br>Location data is used solely to detect toll roads and zones. It remains on your device and is never shared with third parties.</div>
-<div class="legal-text"><strong>Journey Data</strong><br>All journey records are stored locally on your device. No journey data is transmitted externally.</div>
-<div class="legal-text"><strong>User Rights</strong><br>You can delete all data at any time via Settings. As no personal data is stored on external servers, your rights are limited to device-level controls.</div>
-<div class="legal-text"><strong>Children</strong><br>This application is not intended for use by children under the age of 16.</div>
-<div class="legal-text"><strong>Jurisdiction</strong><br>This policy complies with the UK GDPR and Data Protection Act 2018.</div>`;
+<div class="legal-text"><strong>Introduction</strong><br>This Privacy Policy explains how Toll Mate collects, uses and protects data when you use the application.</div>
+<div class="legal-text"><strong>Data Collection</strong><br>Toll Mate uses device location data to detect toll roads and charging zones. Location data is processed in real time and is not stored or transmitted unless otherwise stated.</div>
+<div class="legal-text"><strong>Personal Data</strong><br>Toll Mate does not require users to create an account and does not collect personal identifiable information such as name, email or address.</div>
+<div class="legal-text"><strong>Location Data</strong><br>Location data is used solely for the purpose of detecting toll roads and charging zones. This data remains on the user's device and is not shared with third parties.</div>
+<div class="legal-text"><strong>Data Storage</strong><br>Toll Mate does not store location history or personal data on external servers.</div>
+<div class="legal-text"><strong>Third Party Links</strong><br>The application may direct users to third party websites for payment. Toll Mate does not control and is not responsible for the privacy practices of these websites.</div>
+<div class="legal-text"><strong>Legal Basis for Processing</strong><br>Location data is processed based on user consent and the legitimate interest of providing the core functionality of the application.</div>
+<div class="legal-text"><strong>User Consent</strong><br>By enabling location services and using the application the user consents to the processing of location data for its intended purpose.</div>
+<div class="legal-text"><strong>User Rights</strong><br>Under applicable data protection laws users have the right to access, correct or delete their personal data. As no personal data is stored these rights are limited to device level controls.</div>
+<div class="legal-text"><strong>Data Security</strong><br>Toll Mate uses reasonable measures to ensure data processed within the application is handled securely.</div>
+<div class="legal-text"><strong>Children</strong><br>The application is not intended for use by children under the age of 16.</div>
+<div class="legal-text"><strong>Changes to Policy</strong><br>This Privacy Policy may be updated from time to time. Continued use of the application constitutes acceptance of any updates.</div>
+<div class="legal-text"><strong>Contact</strong><br>For any questions regarding this policy users may contact the developer via the app store listing or official contact channels.</div>
+<div class="legal-text"><strong>Jurisdiction</strong><br>This policy is intended to comply with the UK GDPR and Data Protection Act 2018.</div>`;
 
 function rTC(){return`<div class="screen-header"><button class="back-btn" onclick="go('settings')" aria-label="Back"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button><div class="screen-header-title">Terms &amp; Conditions</div></div><div class="legal-text-block">${TC_HTML}</div>`;}
 function rGDPR(){return`<div class="screen-header"><button class="back-btn" onclick="go('settings')" aria-label="Back"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button><div class="screen-header-title">Privacy Policy &amp; GDPR</div></div><div class="legal-text-block">${GDPR_HTML}</div>`;}
