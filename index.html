@@ -12,14 +12,14 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{
-  --blue:#1A56DB;--blue-bg:#EEF3FF;--blue-dark:#1140B8;--blue-text:#1347C0;
+  --blue:#1A56DB;--blue-bg:#EEF3FF;--blue-text:#1347C0;
   --red:#DC2626;--red-bg:#FEF2F2;--red-text:#991B1B;
   --green:#16A34A;--green-bg:#F0FDF4;--green-text:#14532D;
   --amber:#D97706;--amber-bg:#FFFBEB;--amber-text:#92400E;
   --purple:#7C3AED;--purple-bg:#F5F3FF;--purple-text:#4C1D95;
   --gray:#6B7280;--gray-bg:#F3F4F6;--gray-text:#374151;
-  --surface:#FFFFFF;--surface2:#F7F8FA;--bg:#EDEDEE;
-  --border:rgba(0,0,0,0.09);--text:#111318;--muted:#6B7280;--hint:#9CA3AF;
+  --surface:#FFFFFF;--surface2:#F7F8FA;--bg:#111318;
+  --border:rgba(255,255,255,0.08);--text:#FFFFFF;--muted:#9CA3AF;--hint:#6B7280;
   --safe-top:env(safe-area-inset-top,0px);
   --safe-bottom:env(safe-area-inset-bottom,0px);
   --font:'DM Sans',system-ui,sans-serif;
@@ -27,157 +27,204 @@
 }
 html,body{height:100%;background:var(--bg);font-family:var(--font);color:var(--text);overflow:hidden}
 #app{display:flex;flex-direction:column;height:100%;max-width:430px;margin:0 auto;background:var(--bg);position:relative}
-.topbar{background:var(--surface);border-bottom:0.5px solid var(--border);padding:calc(var(--safe-top) + 12px) 16px 12px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;z-index:10}
+
+/* TOPBAR */
+.topbar{background:rgba(17,19,24,0.95);backdrop-filter:blur(12px);border-bottom:0.5px solid var(--border);padding:calc(var(--safe-top) + 12px) 16px 12px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;z-index:10}
 .topbar-logo{display:flex;align-items:center;gap:10px}
-.topbar-icon{width:34px;height:34px;background:var(--text);border-radius:9px;display:flex;align-items:center;justify-content:center}
+.topbar-icon{width:34px;height:34px;background:var(--red);border-radius:9px;display:flex;align-items:center;justify-content:center}
 .topbar-icon svg{width:20px;height:20px;fill:none;stroke:white;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.topbar-title{font-size:18px;font-weight:600;letter-spacing:-0.3px}
+.topbar-title{font-size:18px;font-weight:600;letter-spacing:-0.3px;color:white}
 .badge{background:var(--red);color:white;font-size:11px;font-weight:600;min-width:20px;height:20px;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:0 6px;font-family:var(--mono)}
+
+/* SCREEN */
 .screen{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:84px}
 .screen::-webkit-scrollbar{display:none}
-.bottomnav{position:absolute;bottom:0;left:0;right:0;background:var(--surface);border-top:0.5px solid var(--border);display:grid;grid-template-columns:1fr 1fr 1fr 1fr;padding:8px 4px calc(8px + var(--safe-bottom));z-index:10}
+
+/* BOTTOMNAV */
+.bottomnav{position:absolute;bottom:0;left:0;right:0;background:rgba(17,19,24,0.95);backdrop-filter:blur(12px);border-top:0.5px solid var(--border);display:grid;grid-template-columns:1fr 1fr 1fr 1fr;padding:8px 4px calc(8px + var(--safe-bottom));z-index:10}
 .nav-btn{display:flex;flex-direction:column;align-items:center;gap:3px;border:none;background:none;cursor:pointer;border-radius:12px;padding:7px 4px;color:var(--hint);transition:color .15s;position:relative;font-family:var(--font)}
-.nav-btn.active{color:var(--text)}
+.nav-btn.active{color:white}
 .nav-btn svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .nav-btn span{font-size:9px;font-weight:500}
-.nav-dot{position:absolute;top:5px;right:calc(50% - 18px);width:8px;height:8px;background:var(--red);border-radius:50%;border:2px solid white}
-.hero{margin:14px 14px 10px;background:var(--text);border-radius:20px;padding:20px;color:white;position:relative;overflow:hidden}
-.hero::after{content:'';position:absolute;right:-30px;top:-30px;width:140px;height:140px;background:rgba(255,255,255,0.04);border-radius:50%}
-.hero-eyebrow{font-size:10px;font-weight:600;letter-spacing:0.8px;color:rgba(255,255,255,0.45);text-transform:uppercase;margin-bottom:4px}
+.nav-dot{position:absolute;top:5px;right:calc(50% - 18px);width:8px;height:8px;background:var(--red);border-radius:50%;border:2px solid var(--bg)}
+
+/* ALERT BANNER - shown when toll detected */
+.alert-banner{margin:14px 14px 0;background:linear-gradient(135deg,#DC2626,#B91C1C);border-radius:16px;padding:16px;color:white;animation:alertpulse 2s infinite}
+@keyframes alertpulse{0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,0.4)}50%{box-shadow:0 0 0 8px rgba(220,38,38,0)}}
+.alert-title{font-size:11px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;opacity:0.7;margin-bottom:4px}
+.alert-name{font-size:20px;font-weight:600;letter-spacing:-0.4px;margin-bottom:4px}
+.alert-sub{font-size:13px;opacity:0.8;margin-bottom:14px}
+.alert-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.alert-pay{background:white;color:var(--red);border:none;border-radius:10px;padding:11px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font)}
+.alert-dismiss{background:rgba(255,255,255,0.15);color:white;border:0.5px solid rgba(255,255,255,0.3);border-radius:10px;padding:11px;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--font)}
+
+/* HERO */
+.hero{margin:14px 14px 10px;background:rgba(255,255,255,0.05);border:0.5px solid var(--border);border-radius:20px;padding:18px;position:relative;overflow:hidden}
+.hero-eyebrow{font-size:10px;font-weight:600;letter-spacing:0.8px;color:var(--muted);text-transform:uppercase;margin-bottom:4px}
 .hero-status{display:flex;align-items:center;gap:8px;margin-bottom:14px}
-.gps-dot{width:8px;height:8px;background:#4ADE80;border-radius:50%;box-shadow:0 0 0 3px rgba(74,222,128,0.25);animation:pulse 2s infinite;flex-shrink:0}
+.gps-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.gps-dot.active{background:#4ADE80;box-shadow:0 0 0 3px rgba(74,222,128,0.25);animation:pulse 2s infinite}
+.gps-dot.inactive{background:#6B7280}
+.gps-dot.searching{background:var(--amber);animation:pulse 1s infinite}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 3px rgba(74,222,128,0.25)}50%{box-shadow:0 0 0 6px rgba(74,222,128,0.08)}}
-.hero-status-text{font-size:13px;color:rgba(255,255,255,0.7)}
-.hero-alert{background:rgba(255,255,255,0.08);border:0.5px solid rgba(255,255,255,0.12);border-radius:12px;padding:11px 13px;display:flex;align-items:center;gap:10px}
-.hero-alert svg{width:18px;height:18px;fill:none;stroke-width:2;stroke-linecap:round;flex-shrink:0}
-.hero-alert-text{font-size:13px;color:rgba(255,255,255,0.9);font-weight:500}
-.section-label{font-size:10px;font-weight:600;letter-spacing:0.5px;color:var(--muted);text-transform:uppercase;padding:0 14px;margin:14px 0 7px}
-.card{margin:0 14px 10px;background:var(--surface);border-radius:16px;border:0.5px solid var(--border);overflow:hidden}
-.journey-row{padding:13px 15px;border-bottom:0.5px solid var(--border);cursor:pointer;transition:background .1s;-webkit-user-select:none;user-select:none}
+.hero-status-text{font-size:13px;color:var(--muted)}
+.hero-card{background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:10px}
+.hero-card svg{width:18px;height:18px;fill:none;stroke-width:2;stroke-linecap:round;flex-shrink:0}
+.hero-card-text{font-size:13px;color:rgba(255,255,255,0.8);font-weight:500}
+
+.section-label{font-size:10px;font-weight:600;letter-spacing:0.5px;color:var(--hint);text-transform:uppercase;padding:0 14px;margin:14px 0 7px}
+.card{margin:0 14px 10px;background:rgba(255,255,255,0.04);border-radius:16px;border:0.5px solid var(--border);overflow:hidden}
+
+/* JOURNEY ROWS */
+.journey-row{padding:13px 15px;border-bottom:0.5px solid var(--border);cursor:pointer;transition:background .1s}
 .journey-row:last-child{border-bottom:none}
-.journey-row:active{background:var(--surface2)}
+.journey-row:active{background:rgba(255,255,255,0.05)}
 .jr-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:3px;gap:8px}
-.jr-name{font-size:14px;font-weight:500}
+.jr-name{font-size:14px;font-weight:500;color:white}
 .jr-sub{font-size:11px;color:var(--muted)}
 .jr-deadline{font-size:11px;color:var(--red);font-weight:500;font-family:var(--mono);margin-top:3px}
 .pill{font-size:10px;font-weight:600;padding:3px 8px;border-radius:6px;white-space:nowrap;flex-shrink:0}
-.pill-pending{background:var(--red-bg);color:var(--red-text)}
-.pill-paid{background:var(--green-bg);color:var(--green-text)}
-.pill-skip{background:var(--gray-bg);color:var(--gray-text)}
+.pill-pending{background:rgba(220,38,38,0.2);color:#FCA5A5}
+.pill-paid{background:rgba(22,163,74,0.2);color:#86EFAC}
+.pill-skip{background:rgba(107,114,128,0.2);color:#9CA3AF}
 .type-badge{font-size:9px;font-weight:600;padding:2px 6px;border-radius:4px;letter-spacing:0.3px;text-transform:uppercase;margin-right:4px}
-.type-toll{background:#FEF3C7;color:#92400E}
-.type-zone{background:var(--purple-bg);color:var(--purple-text)}
-.view-all{display:flex;align-items:center;justify-content:center;gap:6px;padding:12px;background:var(--surface);border:0.5px solid var(--border);border-radius:12px;margin:0 14px 10px;cursor:pointer;color:var(--blue-text);font-size:13px;font-weight:500;font-family:var(--font)}
-.view-all:active{background:var(--blue-bg)}
-.info-card{margin:0 14px 18px;background:var(--surface2);border:0.5px solid var(--border);border-radius:14px;padding:13px 15px}
+.type-toll{background:rgba(217,119,6,0.2);color:#FCD34D}
+.type-zone{background:rgba(124,58,237,0.2);color:#C4B5FD}
+
+.view-all{display:flex;align-items:center;justify-content:center;gap:6px;padding:12px;background:rgba(255,255,255,0.04);border:0.5px solid var(--border);border-radius:12px;margin:0 14px 10px;cursor:pointer;color:#60A5FA;font-size:13px;font-weight:500;font-family:var(--font)}
+
+.info-card{margin:0 14px 18px;background:rgba(255,255,255,0.04);border:0.5px solid var(--border);border-radius:14px;padding:13px 15px}
 .info-title{font-size:11px;font-weight:600;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.4px}
 .info-list{list-style:none}
-.info-list li{font-size:12px;color:var(--gray-text);padding:2px 0;line-height:1.4}
-.add-btn{position:fixed;bottom:calc(84px + var(--safe-bottom) + 14px);right:18px;width:50px;height:50px;background:var(--text);border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 18px rgba(0,0,0,0.25);z-index:20;transition:transform .15s}
+.info-list li{font-size:12px;color:var(--muted);padding:2px 0;line-height:1.5}
+
+/* FAB */
+.add-btn{position:fixed;bottom:calc(84px + var(--safe-bottom) + 14px);right:18px;width:50px;height:50px;background:white;border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 18px rgba(0,0,0,0.4);z-index:20;transition:transform .15s}
 .add-btn:active{transform:scale(0.91)}
-.add-btn svg{width:22px;height:22px;fill:none;stroke:white;stroke-width:2.2;stroke-linecap:round}
+.add-btn svg{width:22px;height:22px;fill:none;stroke:#111318;stroke-width:2.2;stroke-linecap:round}
+
+/* FILTER */
 .filter-bar{padding:10px 14px;display:flex;gap:6px;overflow-x:auto;flex-shrink:0}
 .filter-bar::-webkit-scrollbar{display:none}
-.chip{padding:6px 11px;border-radius:20px;border:0.5px solid var(--border);background:var(--surface);font-size:11px;font-weight:500;color:var(--muted);cursor:pointer;white-space:nowrap;font-family:var(--font);flex-shrink:0}
-.chip-all.active{background:var(--text);color:white;border-color:var(--text)}
-.chip-pending.active{background:var(--red);color:white;border-color:var(--red)}
-.chip-paid.active{background:var(--green);color:white;border-color:var(--green)}
-.chip-skip.active{background:#374151;color:white;border-color:#374151}
-.detail-hero{background:var(--surface);border-bottom:0.5px solid var(--border);padding:14px 18px 16px}
-.detail-type-row{display:flex;align-items:center;gap:6px;margin-bottom:6px}
-.detail-name{font-size:19px;font-weight:600;letter-spacing:-0.4px;margin-bottom:3px}
+.chip{padding:6px 11px;border-radius:20px;border:0.5px solid var(--border);background:rgba(255,255,255,0.04);font-size:11px;font-weight:500;color:var(--muted);cursor:pointer;white-space:nowrap;font-family:var(--font);flex-shrink:0}
+.chip.active-all{background:white;color:#111318;border-color:white}
+.chip.active-pending{background:var(--red);color:white;border-color:var(--red)}
+.chip.active-paid{background:var(--green);color:white;border-color:var(--green)}
+.chip.active-skip{background:#374151;color:white;border-color:#374151}
+
+/* DETAIL */
+.detail-hero{background:rgba(255,255,255,0.04);border-bottom:0.5px solid var(--border);padding:14px 18px 16px}
+.detail-name{font-size:20px;font-weight:600;letter-spacing:-0.4px;margin-bottom:3px;color:white}
 .detail-loc{font-size:12px;color:var(--muted);margin-bottom:13px}
 .detail-meta{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.meta-box{background:var(--surface2);border:0.5px solid var(--border);border-radius:10px;padding:9px 11px}
+.meta-box{background:rgba(255,255,255,0.06);border:0.5px solid var(--border);border-radius:10px;padding:9px 11px}
 .meta-lbl{font-size:9px;font-weight:600;color:var(--hint);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:2px}
-.meta-val{font-size:12px;font-weight:500;font-family:var(--mono)}
-.deadline-box{margin:12px 14px 0;background:var(--red-bg);border:0.5px solid rgba(220,38,38,0.12);border-radius:12px;padding:11px 13px;display:flex;align-items:center;gap:10px}
-.deadline-box svg{width:19px;height:19px;fill:none;stroke:var(--red);stroke-width:2;stroke-linecap:round;flex-shrink:0}
-.dl-lbl{font-size:9px;font-weight:600;color:var(--red-text);text-transform:uppercase;letter-spacing:0.3px;margin-bottom:2px}
-.dl-val{font-size:12px;font-weight:600;color:var(--red-text)}
+.meta-val{font-size:12px;font-weight:500;font-family:var(--mono);color:white}
+
+.deadline-box{margin:12px 14px 0;background:rgba(220,38,38,0.15);border:0.5px solid rgba(220,38,38,0.3);border-radius:12px;padding:11px 13px;display:flex;align-items:center;gap:10px}
+.deadline-box svg{width:19px;height:19px;fill:none;stroke:#FCA5A5;stroke-width:2;stroke-linecap:round;flex-shrink:0}
+.dl-lbl{font-size:9px;font-weight:600;color:#FCA5A5;text-transform:uppercase;letter-spacing:0.3px;margin-bottom:2px}
+.dl-val{font-size:12px;font-weight:600;color:#FCA5A5}
 .dl-cd{font-size:11px;color:var(--red);font-family:var(--mono);margin-top:1px}
-.resolved-box{margin:12px 14px 0;background:var(--green-bg);border:0.5px solid rgba(22,163,74,0.12);border-radius:12px;padding:11px 13px;display:flex;align-items:center;gap:10px}
-.resolved-box svg{width:19px;height:19px;fill:none;stroke:var(--green);stroke-width:2;stroke-linecap:round;flex-shrink:0}
-.resolved-text{font-size:13px;font-weight:500;color:var(--green-text)}
-.disclaimer-box{margin:10px 14px 0;background:var(--amber-bg);border:0.5px solid rgba(217,119,6,0.15);border-radius:10px;padding:10px 12px;font-size:11px;color:var(--amber-text);line-height:1.5}
-.disclaimer-box strong{font-weight:600}
+
+.resolved-box{margin:12px 14px 0;background:rgba(22,163,74,0.15);border:0.5px solid rgba(22,163,74,0.3);border-radius:12px;padding:11px 13px;display:flex;align-items:center;gap:10px}
+.resolved-box svg{width:19px;height:19px;fill:none;stroke:#86EFAC;stroke-width:2;stroke-linecap:round;flex-shrink:0}
+.resolved-text{font-size:13px;font-weight:500;color:#86EFAC}
+
+.disclaimer-box{margin:10px 14px 0;background:rgba(217,119,6,0.1);border:0.5px solid rgba(217,119,6,0.2);border-radius:10px;padding:10px 12px;font-size:11px;color:#FCD34D;line-height:1.5}
+
 .action-section{padding:12px 14px}
-.pay-btn{width:100%;background:var(--text);color:white;border:none;border-radius:12px;padding:14px;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;font-family:var(--font);margin-bottom:9px}
+.pay-btn{width:100%;background:white;color:#111318;border:none;border-radius:12px;padding:14px;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;font-family:var(--font);margin-bottom:9px}
 .pay-btn:active{opacity:0.85}
-.pay-btn svg{width:15px;height:15px;fill:none;stroke:white;stroke-width:2;stroke-linecap:round}
+.pay-btn svg{width:15px;height:15px;fill:none;stroke:#111318;stroke-width:2;stroke-linecap:round}
+.pay-btn.purple{background:#7C3AED;color:white}
+.pay-btn.purple svg{stroke:white}
 .sec-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.sec-btn{padding:12px;border-radius:10px;border:0.5px solid var(--border);background:var(--surface);font-size:13px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;font-family:var(--font)}
+.sec-btn{padding:12px;border-radius:10px;border:0.5px solid var(--border);background:rgba(255,255,255,0.04);font-size:13px;font-weight:500;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;font-family:var(--font)}
 .sec-btn svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
-.sec-paid{color:var(--green)}.sec-paid:active{background:var(--green-bg)}
-.sec-skip{color:var(--muted)}.sec-skip:active{background:var(--gray-bg)}
-.ghost-btn{width:100%;padding:12px;border-radius:10px;border:0.5px solid var(--border);background:var(--surface2);font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;font-family:var(--font);display:flex;align-items:center;justify-content:center;gap:6px;margin-top:8px}
+.sec-paid{color:#86EFAC}.sec-paid:active{background:rgba(22,163,74,0.1)}
+.sec-skip{color:var(--muted)}.sec-skip:active{background:rgba(255,255,255,0.05)}
+.ghost-btn{width:100%;padding:12px;border-radius:10px;border:0.5px solid var(--border);background:rgba(255,255,255,0.04);font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;font-family:var(--font);display:flex;align-items:center;justify-content:center;gap:6px;margin-top:8px}
 .ghost-btn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
-.ghost-btn.danger{color:var(--red);border-color:rgba(220,38,38,0.18)}
-.notif-info{margin:0 14px 14px;background:var(--surface2);border:0.5px solid var(--border);border-radius:10px;padding:10px 12px;font-size:11px;color:var(--muted);line-height:1.5}
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:50;display:flex;align-items:flex-end;justify-content:center}
-.modal{background:var(--surface);border-radius:22px 22px 0 0;padding:0 18px calc(18px + var(--safe-bottom));width:100%;max-width:430px;animation:slideup .22s ease;max-height:92vh;overflow-y:auto}
+.ghost-btn.danger{color:#FCA5A5;border-color:rgba(220,38,38,0.3)}
+.notif-info{margin:0 14px 14px;background:rgba(255,255,255,0.04);border:0.5px solid var(--border);border-radius:10px;padding:10px 12px;font-size:11px;color:var(--muted);line-height:1.5}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:50;display:flex;align-items:flex-end;justify-content:center}
+.modal{background:#1C1F26;border-radius:22px 22px 0 0;padding:0 18px calc(18px + var(--safe-bottom));width:100%;max-width:430px;animation:slideup .22s ease;max-height:92vh;overflow-y:auto}
 @keyframes slideup{from{transform:translateY(100%)}to{transform:translateY(0)}}
 .modal::-webkit-scrollbar{display:none}
 .modal-handle{width:36px;height:4px;background:var(--border);border-radius:2px;margin:12px auto 18px}
-.modal-title{font-size:16px;font-weight:600;margin-bottom:14px}
+.modal-title{font-size:16px;font-weight:600;margin-bottom:14px;color:white}
 .form-group{margin-bottom:12px}
 .form-label{font-size:11px;font-weight:500;color:var(--muted);margin-bottom:5px;display:block}
-.form-select,.form-input,.form-textarea{width:100%;padding:11px 13px;border:0.5px solid rgba(0,0,0,0.15);border-radius:10px;font-size:14px;font-family:var(--font);background:var(--surface2);color:var(--text);appearance:none;-webkit-appearance:none}
-.form-select:focus,.form-input:focus,.form-textarea:focus{outline:none;border-color:var(--blue)}
+.form-select,.form-input,.form-textarea{width:100%;padding:11px 13px;border:0.5px solid rgba(255,255,255,0.1);border-radius:10px;font-size:14px;font-family:var(--font);background:rgba(255,255,255,0.06);color:white;appearance:none;-webkit-appearance:none}
+.form-select:focus,.form-input:focus,.form-textarea:focus{outline:none;border-color:rgba(255,255,255,0.3)}
+.form-select option{background:#1C1F26;color:white}
 .form-textarea{min-height:64px;resize:none}
-.modal-disclaimer{background:var(--amber-bg);border:0.5px solid rgba(217,119,6,0.15);border-radius:10px;padding:10px 12px;font-size:11px;color:var(--amber-text);line-height:1.5;margin-bottom:14px}
+.modal-disclaimer{background:rgba(220,38,38,0.1);border:0.5px solid rgba(220,38,38,0.2);border-radius:10px;padding:10px 12px;font-size:11px;color:#FCA5A5;line-height:1.5;margin-bottom:14px}
 .modal-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:16px}
-.modal-cancel{padding:13px;border-radius:10px;border:0.5px solid var(--border);background:var(--surface2);font-size:14px;font-weight:500;color:var(--muted);cursor:pointer;font-family:var(--font)}
-.modal-confirm{padding:13px;border-radius:10px;border:none;background:var(--text);font-size:14px;font-weight:600;color:white;cursor:pointer;font-family:var(--font)}
+.modal-cancel{padding:13px;border-radius:10px;border:0.5px solid var(--border);background:rgba(255,255,255,0.06);font-size:14px;font-weight:500;color:var(--muted);cursor:pointer;font-family:var(--font)}
+.modal-confirm{padding:13px;border-radius:10px;border:none;background:white;font-size:14px;font-weight:600;color:#111318;cursor:pointer;font-family:var(--font)}
 .modal-confirm:active{opacity:0.85}
+
+/* SETTINGS */
 .settings-group{margin:0 14px 12px}
 .settings-group-lbl{font-size:10px;font-weight:600;color:var(--hint);text-transform:uppercase;letter-spacing:0.5px;padding:0 3px;margin-bottom:6px}
-.settings-card{background:var(--surface);border:0.5px solid var(--border);border-radius:14px;overflow:hidden}
+.settings-card{background:rgba(255,255,255,0.04);border:0.5px solid var(--border);border-radius:14px;overflow:hidden}
 .setting-row{padding:13px 15px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;cursor:pointer}
 .setting-row:last-child{border-bottom:none}
 .setting-left{display:flex;align-items:center;gap:11px}
 .setting-icon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .setting-icon svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
-.si-blue{background:var(--blue-bg);color:var(--blue)}
-.si-green{background:var(--green-bg);color:var(--green)}
-.si-amber{background:var(--amber-bg);color:var(--amber)}
-.si-gray{background:var(--gray-bg);color:var(--gray)}
-.si-red{background:var(--red-bg);color:var(--red)}
-.si-purple{background:var(--purple-bg);color:var(--purple)}
-.setting-name{font-size:13px;font-weight:500}
+.si-blue{background:rgba(26,86,219,0.2);color:#60A5FA}
+.si-green{background:rgba(22,163,74,0.2);color:#86EFAC}
+.si-amber{background:rgba(217,119,6,0.2);color:#FCD34D}
+.si-gray{background:rgba(107,114,128,0.2);color:#9CA3AF}
+.si-red{background:rgba(220,38,38,0.2);color:#FCA5A5}
+.si-purple{background:rgba(124,58,237,0.2);color:#C4B5FD}
+.setting-name{font-size:13px;font-weight:500;color:white}
 .setting-desc{font-size:11px;color:var(--hint);margin-top:1px}
 .toggle{width:42px;height:25px;border-radius:13px;position:relative;cursor:pointer;transition:background .2s;flex-shrink:0;border:none}
 .toggle.on{background:var(--green)}
-.toggle.off{background:#D1D5DB}
-.toggle-thumb{position:absolute;top:3px;width:19px;height:19px;background:white;border-radius:50%;transition:left .2s;box-shadow:0 1px 3px rgba(0,0,0,0.18)}
+.toggle.off{background:rgba(255,255,255,0.15)}
+.toggle-thumb{position:absolute;top:3px;width:19px;height:19px;background:white;border-radius:50%;transition:left .2s;box-shadow:0 1px 3px rgba(0,0,0,0.3)}
 .toggle.on .toggle-thumb{left:20px}
 .toggle.off .toggle-thumb{left:3px}
+
 .screen-header{padding:12px 14px 2px;display:flex;align-items:center;gap:10px}
-.back-btn{width:30px;height:30px;border-radius:8px;border:0.5px solid var(--border);background:var(--surface);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
-.back-btn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
-.screen-header-title{font-size:16px;font-weight:600}
+.back-btn{width:30px;height:30px;border-radius:8px;border:0.5px solid var(--border);background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
+.back-btn svg{width:16px;height:16px;fill:none;stroke:white;stroke-width:2;stroke-linecap:round}
+.screen-header-title{font-size:16px;font-weight:600;color:white}
 .empty{padding:44px 20px;text-align:center;color:var(--hint)}
-.empty svg{width:36px;height:36px;margin-bottom:10px;opacity:0.35;fill:none;stroke:currentColor;stroke-width:1.5;display:block;margin-left:auto;margin-right:auto}
+.empty svg{width:36px;height:36px;margin-bottom:10px;opacity:0.3;fill:none;stroke:currentColor;stroke-width:1.5;display:block;margin-left:auto;margin-right:auto}
 .empty p{font-size:13px}
-.install-banner{margin:0 14px 10px;background:#FFFBEB;border:0.5px solid rgba(217,119,6,0.18);border-radius:12px;padding:11px 13px}
-.install-title{font-size:11px;font-weight:600;color:#92400E;margin-bottom:3px}
-.install-text{font-size:11px;color:#B45309;line-height:1.5}
-.legal-text-block{margin:0 14px 10px;background:var(--surface);border:0.5px solid var(--border);border-radius:14px;padding:13px 15px}
-.legal-text{font-size:11px;color:var(--gray-text);line-height:1.6;margin-bottom:10px}
+
+.legal-text-block{margin:0 14px 10px;background:rgba(255,255,255,0.04);border:0.5px solid var(--border);border-radius:14px;padding:13px 15px}
+.legal-text{font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:10px}
 .legal-text:last-child{margin-bottom:0}
-.legal-text strong{font-weight:600;color:var(--text)}
-.toast{position:fixed;top:calc(var(--safe-top) + 66px);left:50%;transform:translateX(-50%) translateY(-16px);background:#111318;color:white;padding:9px 16px;border-radius:20px;font-size:12px;font-weight:500;z-index:100;opacity:0;transition:all .25s;pointer-events:none;white-space:nowrap}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.legal-text strong{font-weight:600;color:white}
+
+/* GPS STATUS CARD */
+.gps-card{margin:0 14px 10px;background:rgba(255,255,255,0.04);border:0.5px solid var(--border);border-radius:12px;padding:11px 13px;display:flex;align-items:center;justify-content:space-between}
+.gps-card-left{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted)}
+.gps-card-right{font-size:10px;font-weight:600;font-family:var(--mono)}
+.gps-ok{color:#4ADE80}
+.gps-searching{color:var(--amber)}
+.gps-off{color:var(--hint)}
+
 .count-summary{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:0 14px 10px}
-.count-box{background:var(--surface);border:0.5px solid var(--border);border-radius:12px;padding:10px 10px 8px;text-align:center}
-.count-num{font-size:20px;font-weight:600;font-family:var(--mono);letter-spacing:-0.5px}
-.count-lbl{font-size:9px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.3px;margin-top:2px}
-.count-num.red{color:var(--red)}
-.count-num.green{color:var(--green)}
-.db-status{margin:0 14px 10px;background:var(--surface2);border:0.5px solid var(--border);border-radius:10px;padding:9px 12px;font-size:11px;color:var(--muted);display:flex;align-items:center;gap:6px}
-.db-dot{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0}
-.db-dot.loading{background:var(--amber);animation:pulse 1s infinite}
-.db-dot.error{background:var(--red)}
+.count-box{background:rgba(255,255,255,0.04);border:0.5px solid var(--border);border-radius:12px;padding:10px;text-align:center}
+.count-num{font-size:20px;font-weight:600;font-family:var(--mono);letter-spacing:-0.5px;color:white}
+.count-lbl{font-size:9px;font-weight:600;color:var(--hint);text-transform:uppercase;letter-spacing:0.3px;margin-top:2px}
+.count-num.red{color:#FCA5A5}
+.count-num.green{color:#86EFAC}
+
+.toast{position:fixed;top:calc(var(--safe-top) + 66px);left:50%;transform:translateX(-50%) translateY(-16px);background:rgba(255,255,255,0.15);backdrop-filter:blur(12px);color:white;padding:9px 16px;border-radius:20px;font-size:12px;font-weight:500;z-index:100;opacity:0;transition:all .25s;pointer-events:none;white-space:nowrap;border:0.5px solid rgba(255,255,255,0.2)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* DISTANCE DISPLAY */
+.distance-card{margin:0 14px 10px;background:rgba(255,255,255,0.04);border:0.5px solid var(--border);border-radius:12px;padding:10px 13px;font-size:11px;color:var(--muted);font-family:var(--mono)}
 </style>
 </head>
 <body>
@@ -212,117 +259,210 @@ html,body{height:100%;background:var(--bg);font-family:var(--font);color:var(--t
 </div>
 <div class="toast" id="toast"></div>
 <script>
-// ── GOOGLE SHEET CONFIG ───────────────────────────────────────────────────────
-const SHEET_ID = '1Ml0QS6EYeexJxkcmtHMLcNdHlN4HQPp0BKnFzrpghFs';
-const SHEET_CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Sheet1`;
+// ── TOLL DATABASE — exact coordinates and radii from your AIA file ─────────────
+const TOLL_LOCATIONS = [
+  {name:'Mersey Gateway Bridge',  lat:53.3386,  lng:-2.7035, radius:6000, type:'Toll', deadline:'midnight_next_day', url:'https://www.merseyflow.co.uk', compliance:'Pay required after crossing — ANPR cashless system', noPay:false},
+  {name:'Silver Jubilee Bridge',   lat:53.3519,  lng:-2.7320, radius:1200, type:'Toll', deadline:'midnight_next_day', url:'https://www.merseyflow.co.uk', compliance:'Pay required after crossing — ANPR cashless system', noPay:false},
+  {name:'Dartford Crossing',       lat:51.4540,  lng:0.2760,  radius:2200, type:'Toll', deadline:'midnight_next_day', url:'https://www.gov.uk/pay-dartford-crossing-charge', compliance:'Pay required after crossing — ANPR cashless no booths', noPay:false},
+  {name:'Tyne Tunnel',             lat:54.9925,  lng:-1.4630, radius:1800, type:'Toll', deadline:'midnight_next_day', url:'https://www.tt2.co.uk/how-do-you-want-to-pay/', compliance:'Pay required by midnight the day after crossing', noPay:false},
+  {name:'Blackwall Tunnel',        lat:51.4955,  lng:-0.0088, radius:1600, type:'Toll', deadline:'tfl_pay_window',    url:'https://tfl.gov.uk/modes/driving/silvertown-blackwall-tunnels-charge/paying-blackwall-and-silvertown-tunnel-charges', compliance:'Charges apply 06:00–22:00 daily', noPay:false},
+  {name:'Silvertown Tunnel',       lat:51.5005,  lng:0.0085,  radius:1600, type:'Toll', deadline:'tfl_pay_window',    url:'https://tfl.gov.uk/modes/driving/silvertown-blackwall-tunnels-charge/paying-blackwall-and-silvertown-tunnel-charges', compliance:'Charges apply 06:00–22:00 daily', noPay:false},
+  {name:'M6 Toll West',            lat:52.6730,  lng:-2.0180, radius:2500, type:'Toll', deadline:'operator_rules',   url:'https://www.m6toll.co.uk', compliance:'Pay at toll point or via Breeze account', noPay:false},
+  {name:'M6 Toll Central',         lat:52.6330,  lng:-1.9020, radius:2500, type:'Toll', deadline:'operator_rules',   url:'https://www.m6toll.co.uk', compliance:'Pay at toll point or via Breeze account', noPay:false},
+  {name:'M6 Toll East',            lat:52.6120,  lng:-1.7700, radius:2500, type:'Toll', deadline:'operator_rules',   url:'https://www.m6toll.co.uk', compliance:'Pay at toll point or via Breeze account', noPay:false},
+  {name:'Durham Road User Zone',   lat:54.7756,  lng:-1.5752, radius:350,  type:'Zone', deadline:'within_24_hours',  url:'https://www.durham.gov.uk/article/3437/Durham-Road-User-Charge-Zone', compliance:'Diesel pre-2015 or petrol pre-2006 may be charged', noPay:false},
+  {name:'London ULEZ',             lat:51.5074,  lng:-0.1278, radius:26000,type:'Zone', deadline:'tfl_pay_window',   url:'https://tfl.gov.uk/modes/driving/ultra-low-emission-zone/ulez-payments', compliance:'Diesel pre-2015 or petrol pre-2006 may be charged', noPay:false},
+  {name:'London Congestion Zone',  lat:51.5074,  lng:-0.1278, radius:4200, type:'Zone', deadline:'tfl_pay_window',   url:'https://tfl.gov.uk/modes/driving/congestion-charge/paying-the-congestion-charge', compliance:'£18/day charge 07:00–18:00 daily', noPay:false},
+  {name:'London LEZ',              lat:51.5074,  lng:-0.1278, radius:30000,type:'Zone', deadline:'tfl_pay_window',   url:'https://tfl.gov.uk/modes/driving/low-emission-zone/lez-payments', compliance:'Larger vehicles (lorries, buses, coaches) may be charged', noPay:false},
+  {name:'Oxford ZEZ',              lat:51.7520,  lng:-1.2577, radius:900,  type:'Zone', deadline:'zez_daily',        url:'https://www.oxfordshire.gov.uk/transport-and-travel/oxford-zero-emission-zone-zez/check-your-vehicle-and-pay', compliance:'Non zero emission vehicles charged £2–£10 daily', noPay:false},
+  {name:'Bath CAZ',                lat:51.3811,  lng:-2.3590, radius:2000, type:'Zone', deadline:'caz_daily',        url:'https://www.gov.uk/clean-air-zones', compliance:'Diesel pre-2015 or petrol pre-2006 may be charged', noPay:false},
+  {name:'Birmingham CAZ',          lat:52.4862,  lng:-1.8904, radius:4000, type:'Zone', deadline:'caz_daily',        url:'https://www.gov.uk/clean-air-zones', compliance:'Diesel pre-2015 or petrol pre-2006 may be charged', noPay:false},
+  {name:'Bradford CAZ',            lat:53.7950,  lng:-1.7594, radius:3000, type:'Zone', deadline:'caz_daily',        url:'https://www.gov.uk/clean-air-zones', compliance:'Diesel pre-2015 or petrol pre-2006 may be charged', noPay:false},
+  {name:'Bristol CAZ',             lat:51.4545,  lng:-2.5879, radius:3000, type:'Zone', deadline:'caz_daily',        url:'https://www.gov.uk/clean-air-zones', compliance:'Diesel pre-2015 or petrol pre-2006 may be charged', noPay:false},
+  {name:'Portsmouth CAZ',          lat:50.8198,  lng:-1.0880, radius:2500, type:'Zone', deadline:'caz_daily',        url:'https://www.gov.uk/clean-air-zones', compliance:'Diesel pre-2015 or petrol pre-2006 may be charged', noPay:false},
+  {name:'Sheffield CAZ',           lat:53.3811,  lng:-1.4701, radius:3000, type:'Zone', deadline:'caz_daily',        url:'https://www.gov.uk/clean-air-zones', compliance:'Diesel pre-2015 or petrol pre-2006 may be charged', noPay:false},
+  {name:'Tyneside CAZ',            lat:54.9783,  lng:-1.6178, radius:3000, type:'Zone', deadline:'caz_daily',        url:'https://www.gov.uk/clean-air-zones', compliance:'Diesel pre-2015 or petrol pre-2006 may be charged', noPay:false},
+  {name:'Glasgow LEZ',             lat:55.8642,  lng:-4.2518, radius:2500, type:'Zone', deadline:'lez_rules',        url:'https://www.glasgow.gov.uk/article/4985/Glasgow-s-Low-Emission-Zone', compliance:'Euro 6 diesel / Euro 4 petrol required. Cannot pre-pay', noPay:true},
+  {name:'Edinburgh LEZ',           lat:55.9533,  lng:-3.1883, radius:2500, type:'Zone', deadline:'lez_rules',        url:'https://www.edinburgh.gov.uk/low-emission-zone/lez-penalty-charges', compliance:'Euro 6 diesel / Euro 4 petrol required. Cannot pre-pay', noPay:true},
+  {name:'Aberdeen LEZ',            lat:57.1497,  lng:-2.0943, radius:2200, type:'Zone', deadline:'lez_rules',        url:'https://www.aberdeencity.gov.uk/services/roads-travel-and-parking/low-emission-zone', compliance:'Euro 6 diesel / Euro 4 petrol required. Cannot pre-pay', noPay:true},
+  {name:'Dundee LEZ',              lat:56.4620,  lng:-2.9707, radius:2000, type:'Zone', deadline:'lez_rules',        url:'https://www.dundeecity.gov.uk/service-area/city-development/low-emission-zone', compliance:'Euro 6 diesel / Euro 4 petrol required. Cannot pre-pay', noPay:true},
+  {name:'Other toll / zone',       lat:0,        lng:0,       radius:0,    type:'Toll', deadline:'midnight_next_day', url:'', compliance:'Check official signage', noPay:false},
+];
 
-// ── DATABASE ──────────────────────────────────────────────────────────────────
-let LOCATIONS = [];
-let dbStatus = 'loading'; // loading | live | cached | error
+const DEADLINE_LABELS = {
+  midnight_next_day:'Pay by midnight the day after crossing',
+  tfl_pay_window:'Pay by midnight on the third day after travel',
+  within_24_hours:'Pay within 24 hours of entering zone',
+  operator_rules:'Pay at toll point or via Breeze account',
+  zez_daily:'Pay on the day or up to 6 days after entry',
+  caz_daily:'Pay before or on day of entry',
+  lez_rules:'Cannot pre-pay — penalty only if non-compliant'
+};
 
-function parseCSV(text) {
-  const lines = text.trim().split('\n');
-  const headers = lines[0].replace(/"/g,'').split(',');
-  return lines.slice(1).map(line => {
-    const vals = [];
-    let cur = '', inQ = false;
-    for (let i = 0; i < line.length; i++) {
-      if (line[i] === '"') { inQ = !inQ; continue; }
-      if (line[i] === ',' && !inQ) { vals.push(cur); cur = ''; continue; }
-      cur += line[i];
+// ── GPS ENGINE — translated directly from your MIT App Inventor AIA ──────────
+// DistanceMeters function — exact formula from your AIA blocks
+function distanceMeters(lat1, lng1, lat2, lng2) {
+  const dlat = lat2 - lat1;
+  const dlng = lng2 - lng1;
+  const avgLat = (lat1 + lat2) / 2;
+  return 111320 * Math.sqrt(dlat * dlat + dlng * dlng * Math.cos(avgLat) * Math.cos(avgLat));
+}
+
+function deadlineISO(rule) {
+  const d = new Date();
+  if (rule === 'midnight_next_day') { d.setDate(d.getDate()+1); d.setHours(23,59,0,0); }
+  else if (rule === 'tfl_pay_window') { d.setDate(d.getDate()+3); d.setHours(23,59,0,0); }
+  else if (rule === 'within_24_hours') { d.setDate(d.getDate()+1); d.setHours(23,59,0,0); }
+  else if (rule === 'zez_daily' || rule === 'caz_daily') { d.setDate(d.getDate()+6); d.setHours(23,59,0,0); }
+  else if (rule === 'operator_rules') { d.setHours(23,59,0,0); }
+  else if (rule === 'lez_rules') { d.setDate(d.getDate()+1); d.setHours(23,59,0,0); }
+  else { d.setDate(d.getDate()+1); d.setHours(23,59,0,0); }
+  return d.toISOString();
+}
+
+// ── GPS STATE ─────────────────────────────────────────────────────────────────
+let gpsState = 'off'; // off | searching | active | denied
+let currentLat = null;
+let currentLng = null;
+let gpsWatchId = null;
+let wasInside = false;
+let cooldown = 0;
+let cooldownTimer = null;
+let reminderTimers = {};
+let currentDetected = null; // currently detected toll
+let trackingEnabled = true;
+
+// Mirrors the MIT App Inventor Clock.Timer logic — runs every second
+function startGPSEngine() {
+  if (!navigator.geolocation) { gpsState = 'denied'; render(); return; }
+  if (!trackingEnabled) return;
+  gpsState = 'searching';
+  render();
+  gpsWatchId = navigator.geolocation.watchPosition(
+    pos => {
+      currentLat = pos.coords.latitude;
+      currentLng = pos.coords.longitude;
+      gpsState = 'active';
+      checkTollProximity();
+      render();
+    },
+    err => {
+      if (err.code === 1) { gpsState = 'denied'; trackingEnabled = false; }
+      else { gpsState = 'searching'; }
+      render();
+    },
+    { enableHighAccuracy: true, maximumAge: 10000, timeout: 30000 }
+  );
+}
+
+function stopGPS() {
+  if (gpsWatchId !== null) { navigator.geolocation.clearWatch(gpsWatchId); gpsWatchId = null; }
+  gpsState = 'off'; currentLat = null; currentLng = null;
+  currentDetected = null; wasInside = false;
+  render();
+}
+
+// Core detection logic — mirrors the forEach loop in your AIA exactly
+function checkTollProximity() {
+  if (currentLat === null || currentLng === null) return;
+  if (cooldown > 0) { cooldown--; return; }
+
+  let insideAny = false;
+  let closestDist = 99999999;
+  let closestToll = null;
+
+  TOLL_LOCATIONS.forEach(toll => {
+    if (toll.lat === 0) return; // skip "Other" entry
+    const dist = distanceMeters(currentLat, currentLng, toll.lat, toll.lng);
+    if (dist < closestDist) {
+      closestDist = dist;
+      closestToll = toll;
     }
-    vals.push(cur);
-    const obj = {};
-    headers.forEach((h, i) => obj[h.trim()] = (vals[i] || '').trim());
-    return obj;
-  }).filter(r => r.name && r.active !== 'FALSE');
-}
+    if (dist <= toll.radius) {
+      insideAny = true;
+    }
+  });
 
-function sheetRowToLocation(r) {
-  return {
-    name: r.name,
-    location: r.location,
-    type: r.type,
-    deadline: r.deadline,
-    deadlineLabel: r.deadline_label,
-    url: r.url,
-    compliance: r.compliance,
-    noPay: r.no_pay === 'TRUE',
-    lat: parseFloat(r.lat),
-    lng: parseFloat(r.lng),
-    lastVerified: r.last_verified
-  };
-}
-
-async function loadDatabase() {
-  // Try live sheet first
-  try {
-    const res = await fetch(SHEET_CSV_URL, { cache: 'no-store' });
-    if (!res.ok) throw new Error('Sheet fetch failed');
-    const text = await res.text();
-    const rows = parseCSV(text);
-    if (rows.length < 5) throw new Error('Too few rows');
-    LOCATIONS = rows.map(sheetRowToLocation);
-    // Add manual entry option
-    LOCATIONS.push({ name: 'Other toll / zone', location: 'UK', type: 'Toll', deadline: 'midnight_next_day', deadlineLabel: 'Pay by midnight next day', url: '', compliance: 'Check official signage', noPay: false });
-    dbStatus = 'live';
-    // Cache it
-    try { localStorage.setItem('tm_db', JSON.stringify(LOCATIONS)); localStorage.setItem('tm_db_ts', Date.now()); } catch(e) {}
-    return true;
-  } catch(e) {
-    // Fall back to cache
-    try {
-      const cached = localStorage.getItem('tm_db');
-      if (cached) {
-        LOCATIONS = JSON.parse(cached);
-        dbStatus = 'cached';
-        return true;
-      }
-    } catch(e2) {}
-    // Fall back to hardcoded
-    dbStatus = 'error';
-    LOCATIONS = FALLBACK_LOCATIONS;
-    return false;
+  if (insideAny && !wasInside) {
+    // New toll detected — mirrors the "wasInside = FALSE" branch in AIA
+    wasInside = true;
+    cooldown = 60; // 60 second cooldown same as AIA
+    currentDetected = closestToll;
+    triggerTollDetected(closestToll);
+  } else if (!insideAny) {
+    wasInside = false;
+    if (currentDetected && screen !== 'dashboard') currentDetected = null;
   }
 }
 
-// ── FALLBACK DATABASE (in case sheet unreachable and no cache) ────────────────
-const FALLBACK_LOCATIONS = [
-  {name:'Mersey Gateway Bridge',location:'Merseyside',type:'Toll',deadline:'midnight_next_day',deadlineLabel:'Pay by midnight the day you cross',url:'https://www.merseyflow.co.uk',compliance:'Pay required after crossing — ANPR cashless system',noPay:false},
-  {name:'Silver Jubilee Bridge',location:'Merseyside',type:'Toll',deadline:'midnight_next_day',deadlineLabel:'Pay by midnight the day you cross',url:'https://www.merseyflow.co.uk',compliance:'Pay required after crossing — ANPR cashless system',noPay:false},
-  {name:'Dartford Crossing',location:'Kent / Essex',type:'Toll',deadline:'midnight_next_day',deadlineLabel:'Pay by midnight the day after crossing',url:'https://www.gov.uk/pay-dartford-crossing-charge',compliance:'Pay required after crossing — ANPR cashless no booths',noPay:false},
-  {name:'Tyne Tunnel',location:'Tyne & Wear',type:'Toll',deadline:'midnight_next_day',deadlineLabel:'Pay by midnight the day after crossing',url:'https://www.tt2.co.uk/how-do-you-want-to-pay/',compliance:'Pay required by midnight the day after crossing',noPay:false},
-  {name:'Blackwall Tunnel',location:'East London',type:'Toll',deadline:'tfl_pay_window',deadlineLabel:'Pay by midnight the day after crossing',url:'https://tfl.gov.uk/modes/driving/silvertown-blackwall-tunnels-charge/paying-blackwall-and-silvertown-tunnel-charges',compliance:'Charges apply 06:00-22:00 daily',noPay:false},
-  {name:'Silvertown Tunnel',location:'East London',type:'Toll',deadline:'tfl_pay_window',deadlineLabel:'Pay by midnight the day after crossing',url:'https://tfl.gov.uk/modes/driving/silvertown-blackwall-tunnels-charge/paying-blackwall-and-silvertown-tunnel-charges',compliance:'Charges apply 06:00-22:00 daily',noPay:false},
-  {name:'M6 Toll (West)',location:'Midlands',type:'Toll',deadline:'operator_rules',deadlineLabel:'Pay at toll point or via Breeze account',url:'https://www.m6toll.co.uk',compliance:'Pay at toll point or via Breeze ANPR account',noPay:false},
-  {name:'M6 Toll (Central)',location:'Midlands',type:'Toll',deadline:'operator_rules',deadlineLabel:'Pay at toll point or via Breeze account',url:'https://www.m6toll.co.uk',compliance:'Pay at toll point or via Breeze ANPR account',noPay:false},
-  {name:'M6 Toll (East)',location:'Midlands',type:'Toll',deadline:'operator_rules',deadlineLabel:'Pay at toll point or via Breeze account',url:'https://www.m6toll.co.uk',compliance:'Pay at toll point or via Breeze ANPR account',noPay:false},
-  {name:'Durham Road User Zone',location:'Durham City',type:'Zone',deadline:'within_24_hours',deadlineLabel:'Pay within 24 hours of entering zone',url:'https://www.durham.gov.uk/article/3437/Durham-Road-User-Charge-Zone',compliance:'Diesel pre-2015 or petrol pre-2006 may be charged',noPay:false},
-  {name:'London ULEZ',location:'Greater London',type:'Zone',deadline:'tfl_pay_window',deadlineLabel:'Pay by midnight on the third day after travel',url:'https://tfl.gov.uk/modes/driving/ultra-low-emission-zone/ulez-payments',compliance:'Diesel pre-2015 or petrol pre-2006 may be charged',noPay:false},
-  {name:'London Congestion Zone',location:'Central London',type:'Zone',deadline:'tfl_pay_window',deadlineLabel:'Pay by midnight on the third day after travel',url:'https://tfl.gov.uk/modes/driving/congestion-charge/paying-the-congestion-charge',compliance:'£18/day charge 07:00-18:00 daily',noPay:false},
-  {name:'London LEZ',location:'Greater London',type:'Zone',deadline:'tfl_pay_window',deadlineLabel:'Pay by midnight on the third day after travel',url:'https://tfl.gov.uk/modes/driving/low-emission-zone/lez-payments',compliance:'Larger vehicles may be charged',noPay:false},
-  {name:'Oxford ZEZ',location:'Oxford City Centre',type:'Zone',deadline:'zez_daily',deadlineLabel:'Pay on the day or up to 6 days after entry',url:'https://www.oxfordshire.gov.uk/transport-and-travel/oxford-zero-emission-zone-zez/check-your-vehicle-and-pay',compliance:'Non zero emission vehicles charged £2-£10 daily',noPay:false},
-  {name:'Bath CAZ',location:'Bath',type:'Zone',deadline:'caz_daily',deadlineLabel:'Pay before or on day of entry',url:'https://www.gov.uk/clean-air-zones',compliance:'Diesel pre-2015 or petrol pre-2006 may be charged',noPay:false},
-  {name:'Birmingham CAZ',location:'Birmingham',type:'Zone',deadline:'caz_daily',deadlineLabel:'Pay before or on day of entry',url:'https://www.gov.uk/clean-air-zones',compliance:'Diesel pre-2015 or petrol pre-2006 may be charged',noPay:false},
-  {name:'Bradford CAZ',location:'Bradford',type:'Zone',deadline:'caz_daily',deadlineLabel:'Pay before or on day of entry',url:'https://www.gov.uk/clean-air-zones',compliance:'Diesel pre-2015 or petrol pre-2006 may be charged',noPay:false},
-  {name:'Bristol CAZ',location:'Bristol',type:'Zone',deadline:'caz_daily',deadlineLabel:'Pay before or on day of entry',url:'https://www.gov.uk/clean-air-zones',compliance:'Diesel pre-2015 or petrol pre-2006 may be charged',noPay:false},
-  {name:'Portsmouth CAZ',location:'Portsmouth',type:'Zone',deadline:'caz_daily',deadlineLabel:'Pay before or on day of entry',url:'https://www.gov.uk/clean-air-zones',compliance:'Diesel pre-2015 or petrol pre-2006 may be charged',noPay:false},
-  {name:'Sheffield CAZ',location:'Sheffield',type:'Zone',deadline:'caz_daily',deadlineLabel:'Pay before or on day of entry',url:'https://www.gov.uk/clean-air-zones',compliance:'Diesel pre-2015 or petrol pre-2006 may be charged',noPay:false},
-  {name:'Tyneside CAZ',location:'Tyne & Wear',type:'Zone',deadline:'caz_daily',deadlineLabel:'Pay before or on day of entry',url:'https://www.gov.uk/clean-air-zones',compliance:'Diesel pre-2015 or petrol pre-2006 may be charged',noPay:false},
-  {name:'Glasgow LEZ',location:'Glasgow',type:'Zone',deadline:'lez_rules',deadlineLabel:'Cannot pre-pay — penalty only if non-compliant',url:'https://www.glasgow.gov.uk/article/4985/Glasgow-s-Low-Emission-Zone',compliance:'Euro 6 diesel / Euro 4 petrol required',noPay:true},
-  {name:'Edinburgh LEZ',location:'Edinburgh',type:'Zone',deadline:'lez_rules',deadlineLabel:'Cannot pre-pay — penalty only if non-compliant',url:'https://www.edinburgh.gov.uk/low-emission-zone/lez-penalty-charges',compliance:'Euro 6 diesel / Euro 4 petrol required',noPay:true},
-  {name:'Aberdeen LEZ',location:'Aberdeen',type:'Zone',deadline:'lez_rules',deadlineLabel:'Cannot pre-pay — penalty only if non-compliant',url:'https://www.aberdeencity.gov.uk/services/roads-travel-and-parking/low-emission-zone',compliance:'Euro 6 diesel / Euro 4 petrol required',noPay:true},
-  {name:'Dundee LEZ',location:'Dundee',type:'Zone',deadline:'lez_rules',deadlineLabel:'Cannot pre-pay — penalty only if non-compliant',url:'https://www.dundeecity.gov.uk/service-area/city-development/low-emission-zone',compliance:'Euro 6 diesel / Euro 4 petrol required',noPay:true},
-  {name:'Other toll / zone',location:'UK',type:'Toll',deadline:'midnight_next_day',deadlineLabel:'Pay by midnight next day',url:'',compliance:'Check official signage',noPay:false},
-];
+function triggerTollDetected(toll) {
+  // Log the journey automatically
+  const j = {
+    id: nextId(),
+    name: toll.name,
+    location: toll.type === 'Zone' ? 'Charging Zone' : 'Toll Road',
+    type: toll.type,
+    date: new Date().toISOString(),
+    deadline: deadlineISO(toll.deadline),
+    deadlineLabel: DEADLINE_LABELS[toll.deadline] || 'Check official website',
+    status: 'pending',
+    url: toll.url,
+    compliance: toll.compliance,
+    noPay: toll.noPay,
+    autoDetected: true,
+    reg: '', notes: ''
+  };
+  journeys = [j, ...journeys];
+  save(journeys);
+  // Show notification
+  showTollNotification(toll, j.id);
+  // Schedule 6-hour reminder (21600 seconds — same as AIA)
+  scheduleReminder(j.id, toll, 21600 * 1000);
+  toast('⚠ Toll detected: ' + toll.name);
+  render();
+}
+
+function showTollNotification(toll, journeyId) {
+  if (notifOk && settings.notif) {
+    try {
+      new Notification('⚠ Toll Mate — ' + toll.name, {
+        body: 'You have entered ' + toll.name + '. ' + (DEADLINE_LABELS[toll.deadline] || 'Pay at official portal.'),
+        tag: 'tm-detect-' + journeyId,
+        requireInteraction: true
+      });
+    } catch(e) {}
+  }
+}
+
+function scheduleReminder(journeyId, toll, delayMs) {
+  if (reminderTimers[journeyId]) clearTimeout(reminderTimers[journeyId]);
+  reminderTimers[journeyId] = setTimeout(() => {
+    const j = journeys.find(x => x.id === journeyId);
+    if (!j || j.status !== 'pending') return;
+    // Show reminder notification
+    if (notifOk && settings.notif) {
+      try {
+        new Notification('🔔 Toll Payment Reminder — ' + j.name, {
+          body: j.deadlineLabel + '. Tap to view details.',
+          tag: 'tm-remind-' + journeyId,
+          requireInteraction: true
+        });
+      } catch(e) {}
+    }
+    toast('Reminder: ' + j.name + ' payment due');
+    render();
+    // Schedule next reminder in 6 hours
+    scheduleReminder(journeyId, toll, 21600 * 1000);
+  }, delayMs);
+}
 
 // ── STATE ─────────────────────────────────────────────────────────────────────
 function load(){try{return JSON.parse(localStorage.getItem('tm_j')||'[]');}catch(e){return[];}}
 function save(j){try{localStorage.setItem('tm_j',JSON.stringify(j));}catch(e){toast('⚠ Storage full');}}
-function loadS(){try{return JSON.parse(localStorage.getItem('tm_s')||'{"notif":true}');}catch(e){return{notif:true};}}
+function loadS(){try{return JSON.parse(localStorage.getItem('tm_s')||'{"notif":true,"tracking":true}');}catch(e){return{notif:true,tracking:true};}}
 function saveS(s){try{localStorage.setItem('tm_s',JSON.stringify(s));}catch(e){}}
-
 let journeys=load(), settings=loadS(), screen='dashboard', selId=null, filter='all', notifOk=false;
+trackingEnabled = settings.tracking !== false;
 
 // ── HELPERS ───────────────────────────────────────────────────────────────────
 function fmt(d){return new Date(d).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})+' · '+new Date(d).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});}
@@ -337,17 +477,6 @@ function rem(deadline){
   if(m>0)return m+'m left';
   return'Due now';
 }
-function deadlineISO(rule){
-  const d=new Date();
-  if(rule==='midnight_next_day'){d.setDate(d.getDate()+1);d.setHours(23,59,0,0);}
-  else if(rule==='tfl_pay_window'){d.setDate(d.getDate()+3);d.setHours(23,59,0,0);}
-  else if(rule==='within_24_hours'){d.setDate(d.getDate()+1);d.setHours(23,59,0,0);}
-  else if(rule==='zez_daily'||rule==='caz_daily'){d.setDate(d.getDate()+6);d.setHours(23,59,0,0);}
-  else if(rule==='operator_rules'){d.setHours(23,59,0,0);}
-  else if(rule==='lez_rules'){d.setDate(d.getDate()+1);d.setHours(23,59,0,0);}
-  else{d.setDate(d.getDate()+1);d.setHours(23,59,0,0);}
-  return d.toISOString();
-}
 function pending(){return journeys.filter(j=>j.status==='pending');}
 function nextId(){return journeys.length?Math.max(...journeys.map(j=>j.id))+1:1;}
 function esc(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
@@ -357,27 +486,14 @@ function pillHtml(s){
   return'<span class="pill pill-skip">Not needed</span>';
 }
 function typeBadge(t){return t==='Zone'?'<span class="type-badge type-zone">Zone</span>':'<span class="type-badge type-toll">Toll</span>';}
-function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
-function dbStatusHtml(){
-  const labels={live:'Database live from Google Sheet',cached:'Using cached database',error:'Using built-in database — check connection',loading:'Loading database...'};
-  const dotClass=dbStatus==='live'?'db-dot':dbStatus==='loading'?'db-dot loading':'db-dot error';
-  return`<div class="db-status"><div class="${dotClass}"></div><span>${labels[dbStatus]||''}</span></div>`;
-}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
 
 async function reqNotif(){
   if(!('Notification'in window))return;
   const r=await Notification.requestPermission();
   notifOk=r==='granted';
-  toast(notifOk?'Notifications enabled ✓':'Notifications not granted');
+  toast(notifOk?'Notifications enabled ✓':'Notifications blocked');
   render();
-}
-function schedNotif(j){
-  if(!notifOk||!settings.notif)return;
-  setTimeout(()=>{
-    const live=journeys.find(x=>x.id===j.id);
-    if(!live||live.status!=='pending')return;
-    try{new Notification('Toll Payment Due — '+j.name,{body:'You used '+j.name+' on '+fmtS(j.date)+'. Pay before your deadline.',tag:'tm-'+j.id});}catch(e){}
-  },6*60*60*1000);
 }
 
 // ── NAVIGATION ────────────────────────────────────────────────────────────────
@@ -393,19 +509,25 @@ function go(s,id){
   else if(s==='settings'||s==='tc'||s==='gdpr')document.getElementById('nav-settings').classList.add('active');
   render();document.getElementById('screen').scrollTop=0;
 }
+
 function setStatus(id,s){
   journeys=journeys.map(j=>j.id===id?{...j,status:s}:j);save(journeys);
+  if(s!=='pending' && reminderTimers[id]){clearTimeout(reminderTimers[id]);delete reminderTimers[id];}
   toast(s==='paid'?'Marked as paid ✓':s==='pending'?'Marked as pending':'Marked as not needed');
   go('journeys');
 }
 function del(id){
-  if(confirm('Delete this journey?')){journeys=journeys.filter(j=>j.id!==id);save(journeys);toast('Journey deleted');go('journeys');}
+  if(confirm('Delete this journey?')){
+    journeys=journeys.filter(j=>j.id!==id);save(journeys);
+    if(reminderTimers[id]){clearTimeout(reminderTimers[id]);delete reminderTimers[id];}
+    toast('Journey deleted');go('journeys');
+  }
 }
 
 // ── MODAL ─────────────────────────────────────────────────────────────────────
 function openModal(){
   const now=new Date().toISOString().slice(0,16);
-  const opts=LOCATIONS.map((r,i)=>`<option value="${i}">${r.type==='Zone'?'⬡ ':'● '}${r.name} — ${r.location}</option>`).join('');
+  const opts=TOLL_LOCATIONS.map((r,i)=>`<option value="${i}">${r.type==='Zone'?'⬡ ':'● '}${r.name}</option>`).join('');
   const el=document.createElement('div');
   el.className='modal-overlay';el.id='modal-overlay';
   el.innerHTML=`<div class="modal" onclick="event.stopPropagation()">
@@ -415,11 +537,11 @@ function openModal(){
     <div class="form-group"><label class="form-label">Toll road or charging zone</label>
       <select class="form-select" id="m-road">${opts}</select></div>
     <div class="form-group"><label class="form-label">Date &amp; time of journey</label>
-      <input type="datetime-local" class="form-input" id="m-date" value="${now}" max="${now}"></div>
+      <input type="datetime-local" class="form-input" id="m-date" value="${now}"></div>
     <div class="form-group"><label class="form-label">Vehicle reg (optional)</label>
       <input type="text" class="form-input" id="m-reg" placeholder="e.g. AB12 CDE" autocapitalize="characters"></div>
     <div class="form-group"><label class="form-label">Notes (optional)</label>
-      <textarea class="form-textarea" id="m-notes" placeholder="e.g. Work trip, returning journey..."></textarea></div>
+      <textarea class="form-textarea" id="m-notes" placeholder="e.g. Work trip..."></textarea></div>
     <div class="modal-actions">
       <button class="modal-cancel" onclick="closeModal()">Cancel</button>
       <button class="modal-confirm" id="m-confirm" onclick="confirmAdd()">Add journey</button>
@@ -435,10 +557,23 @@ function confirmAdd(){
   const reg=document.getElementById('m-reg').value.trim().toUpperCase();
   const notes=document.getElementById('m-notes').value.trim();
   if(!dv){toast('Please select a date');if(btn)btn.disabled=false;return;}
-  const loc=LOCATIONS[ri];
-  const j={id:nextId(),name:loc.name,location:loc.location,type:loc.type,date:new Date(dv).toISOString(),deadline:deadlineISO(loc.deadline),deadlineLabel:loc.deadlineLabel||'Check official website',status:'pending',url:loc.url,compliance:loc.compliance,noPay:loc.noPay,reg,notes};
+  const loc=TOLL_LOCATIONS[ri];
+  const j={id:nextId(),name:loc.name,location:loc.location||loc.type,type:loc.type,date:new Date(dv).toISOString(),deadline:deadlineISO(loc.deadline),deadlineLabel:DEADLINE_LABELS[loc.deadline]||'Check official website',status:'pending',url:loc.url,compliance:loc.compliance,noPay:loc.noPay,autoDetected:false,reg,notes};
   journeys=[j,...journeys];save(journeys);
-  closeModal();schedNotif(j);toast('Journey logged');go('journeys');
+  scheduleReminder(j.id,loc,21600*1000);
+  closeModal();toast('Journey logged');go('journeys');
+}
+
+// ── GPS PERMISSION REQUEST ─────────────────────────────────────────────────────
+function requestGPS(){
+  if(gpsState==='denied'){toast('Location blocked — enable in browser settings');return;}
+  trackingEnabled=true;settings.tracking=true;saveS(settings);
+  startGPSEngine();
+  render();
+}
+function disableGPS(){
+  trackingEnabled=false;settings.tracking=false;saveS(settings);
+  stopGPS();
 }
 
 // ── RENDER ────────────────────────────────────────────────────────────────────
@@ -455,54 +590,78 @@ function render(){
   else if(screen==='tc')sc.innerHTML=rTC();
   else if(screen==='gdpr')sc.innerHTML=rGDPR();
   let fab=document.getElementById('add-btn');
-  const showFab=screen==='dashboard'||screen==='journeys';
-  if(showFab){
+  if(screen==='dashboard'||screen==='journeys'){
     if(!fab){fab=document.createElement('button');fab.id='add-btn';fab.className='add-btn';fab.onclick=openModal;fab.setAttribute('aria-label','Log journey');fab.innerHTML='<svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>';document.getElementById('app').appendChild(fab);}
     fab.style.display='flex';
   } else if(fab){fab.style.display='none';}
 }
 
+function gpsStatusHtml(){
+  const labels={off:'GPS off',searching:'Searching for signal...',active:'GPS active — monitoring',denied:'GPS blocked by browser'};
+  const dotClass='gps-dot '+gpsState;
+  const rightClass=gpsState==='active'?'gps-ok':gpsState==='searching'?'gps-searching':'gps-off';
+  const distText = currentDetected && currentLat ?
+    ` · Nearest: ${currentDetected.name}` : '';
+  return`<div class="gps-card"><div class="gps-card-left"><div class="${dotClass}"></div>${labels[gpsState]||'Unknown'}${distText}</div><div class="gps-card-right ${rightClass}">${gpsState.toUpperCase()}</div></div>`;
+}
+
 function rDash(){
   const p=pending();
-  const alertHtml=p.length>0
-    ?`<div class="hero-alert"><svg style="stroke:#FCD34D" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><div class="hero-alert-text">${p.length} payment${p.length>1?'s':''} need attention</div></div>`
-    :`<div class="hero-alert" style="background:rgba(74,222,128,0.1);border-color:rgba(74,222,128,0.2)"><svg style="stroke:#4ADE80" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><div class="hero-alert-text">${journeys.length>0?'All journeys up to date':'Tap + to log your first journey'}</div></div>`;
-  const pCount=journeys.filter(j=>j.status==='pending').length;
-  const dCount=journeys.filter(j=>j.status==='paid').length;
-  const counts=`<div class="count-summary">
-    <div class="count-box"><div class="count-num">${journeys.length}</div><div class="count-lbl">Total</div></div>
-    <div class="count-box"><div class="count-num red">${pCount}</div><div class="count-lbl">Pending</div></div>
-    <div class="count-box"><div class="count-num green">${dCount}</div><div class="count-lbl">Paid</div></div>
-  </div>`;
-  const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent)&&!window.navigator.standalone;
-  const banner=isIOS?`<div class="install-banner"><div class="install-title">📲 Add to Home Screen</div><div class="install-text">Tap the Share button in Safari → "Add to Home Screen" to use Toll Mate like a native app.</div></div>`:'';
+  const alertBanner = currentDetected ? `
+    <div class="alert-banner">
+      <div class="alert-title">⚠ Toll detected now</div>
+      <div class="alert-name">${esc(currentDetected.name)}</div>
+      <div class="alert-sub">${DEADLINE_LABELS[currentDetected.deadline]||''}</div>
+      <div class="alert-actions">
+        ${currentDetected.url ? `<button class="alert-pay" onclick="window.open('${currentDetected.url}','_blank')">Pay now</button>` : '<div></div>'}
+        <button class="alert-dismiss" onclick="currentDetected=null;render()">Dismiss</button>
+      </div>
+    </div>` : '';
+
+  const heroCard = p.length > 0
+    ? `<div class="hero-card"><svg style="stroke:#FCD34D" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg><div class="hero-card-text">${p.length} payment${p.length>1?'s':''} need attention</div></div>`
+    : `<div class="hero-card"><svg style="stroke:#4ADE80" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><div class="hero-card-text">${journeys.length>0?'All payments up to date':'No journeys yet — drive or tap + to log'}</div></div>`;
+
+  const gpsBtnHtml = trackingEnabled && gpsState === 'off'
+    ? `<button onclick="requestGPS()" style="margin:0 14px 10px;width:calc(100% - 28px);padding:12px;border-radius:10px;border:0.5px solid rgba(74,222,128,0.3);background:rgba(74,222,128,0.08);color:#4ADE80;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--font)">Enable GPS detection</button>`
+    : gpsState === 'denied'
+    ? `<div style="margin:0 14px 10px;padding:10px 13px;border-radius:10px;border:0.5px solid rgba(220,38,38,0.3);background:rgba(220,38,38,0.08);color:#FCA5A5;font-size:11px">GPS blocked. Enable location in browser/phone settings for auto-detection.</div>`
+    : '';
+
   const recentRows=journeys.slice(0,3).map(j=>`
     <div class="journey-row" onclick="go('detail',${j.id})">
-      <div class="jr-top"><div><div class="jr-name">${esc(j.name)}</div><div class="jr-sub">${typeBadge(j.type)} ${esc(j.location)}</div></div>${pillHtml(j.status)}</div>
-      <div class="jr-sub" style="margin-top:4px">${fmtS(j.date)}</div>
+      <div class="jr-top"><div><div class="jr-name">${esc(j.name)}</div><div class="jr-sub">${typeBadge(j.type)}${j.autoDetected?'<span style="font-size:9px;color:#60A5FA;margin-left:4px">AUTO</span>':''} ${fmtS(j.date)}</div></div>${pillHtml(j.status)}</div>
       ${j.status==='pending'?`<div class="jr-deadline">${rem(j.deadline)}</div>`:''}
-    </div>`).join('')||'<div style="padding:16px;font-size:12px;color:var(--hint);text-align:center">No journeys yet — tap + to log one</div>';
+    </div>`).join('')||'<div style="padding:16px;font-size:12px;color:var(--hint);text-align:center">No journeys yet</div>';
+
+  const counts=`<div class="count-summary">
+    <div class="count-box"><div class="count-num">${journeys.length}</div><div class="count-lbl">Total</div></div>
+    <div class="count-box"><div class="count-num red">${journeys.filter(j=>j.status==='pending').length}</div><div class="count-lbl">Pending</div></div>
+    <div class="count-box"><div class="count-num green">${journeys.filter(j=>j.status==='paid').length}</div><div class="count-lbl">Paid</div></div>
+  </div>`;
+
   return`
-    <div class="hero">
-      <div class="hero-eyebrow">Status</div>
-      <div class="hero-status"><div class="gps-dot"></div><span class="hero-status-text">Active — log toll journeys manually</span></div>
-      ${alertHtml}
+    ${alertBanner}
+    <div class="hero" style="margin-top:${alertBanner?'10px':'14px'}">
+      <div class="hero-eyebrow">GPS Status</div>
+      <div class="hero-status"><div class="gps-dot ${gpsState}"></div><span class="hero-status-text">${gpsState==='active'?'Monitoring all 25 UK toll locations':gpsState==='searching'?'Acquiring GPS signal...':gpsState==='denied'?'GPS access denied':'GPS tracking off'}</span></div>
+      ${heroCard}
     </div>
+    ${gpsStatusHtml()}
+    ${gpsBtnHtml}
     ${counts}
-    ${dbStatusHtml()}
-    ${banner}
     <div class="section-label">Recent journeys</div>
     <div class="card">${recentRows}</div>
     ${journeys.length>3?`<button class="view-all" onclick="go('journeys')">View all ${journeys.length} journeys →</button>`:''}
-    <div class="section-label">About</div>
+    <div class="section-label">How it works</div>
     <div class="info-card">
-      <div class="info-title">How to use Toll Mate</div>
+      <div class="info-title">Auto-detection</div>
       <ul class="info-list">
-        <li>Tap + to log a toll road or zone journey</li>
-        <li>Database auto-updates weekly from official UK sources</li>
-        <li>Tap "Pay now" to go to the official payment portal</li>
-        <li>Mark as Paid when done — reminders stop</li>
-        <li>All journey data stored only on your device</li>
+        <li>GPS checks your position against all 25 UK toll locations</li>
+        <li>Alert fires automatically when you enter a toll zone</li>
+        <li>Reminders every 6 hours until you mark as paid</li>
+        <li>Tap + to log a journey manually instead</li>
+        <li>All data stored only on your device</li>
       </ul>
     </div>`;
 }
@@ -511,13 +670,12 @@ function rJourneys(){
   const counts={all:journeys.length,pending:journeys.filter(j=>j.status==='pending').length,paid:journeys.filter(j=>j.status==='paid').length,'not-needed':journeys.filter(j=>j.status==='not-needed').length};
   const filtered=journeys.filter(j=>filter==='all'||j.status===filter);
   const chips=[['all','All'],['pending','Pending'],['paid','Paid'],['not-needed','Not needed']]
-    .map(([v,l])=>`<button class="chip chip-${v} ${filter===v?'active':''}" onclick="setF('${v}')">${l} ${counts[v]}</button>`).join('');
+    .map(([v,l])=>`<button class="chip ${filter===v?'active-'+v:''}" onclick="setF('${v}')">${l} ${counts[v]}</button>`).join('');
   const rows=filtered.length===0
     ?`<div class="empty"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg><p>No journeys here</p></div>`
     :filtered.map(j=>`
     <div class="journey-row" onclick="go('detail',${j.id})">
-      <div class="jr-top"><div><div class="jr-name">${esc(j.name)}</div><div class="jr-sub">${typeBadge(j.type)} ${esc(j.location)}</div></div>${pillHtml(j.status)}</div>
-      <div class="jr-sub" style="margin-top:5px">${fmt(j.date)}</div>
+      <div class="jr-top"><div><div class="jr-name">${esc(j.name)}</div><div class="jr-sub">${typeBadge(j.type)}${j.autoDetected?'<span style="font-size:9px;color:#60A5FA;margin-left:4px">AUTO</span>':''} ${fmt(j.date)}</div></div>${pillHtml(j.status)}</div>
       ${j.status==='pending'?`<div class="jr-deadline">${rem(j.deadline)}</div>`:''}
     </div>`).join('');
   return`
@@ -536,14 +694,14 @@ function rDetail(){
   const actions=isPending
     ?`<div class="action-section">
         ${j.url&&!j.noPay?`<button class="pay-btn" onclick="window.open('${j.url}','_blank')">Pay now — official portal <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></button>`:''}
-        ${j.url&&j.noPay?`<button class="pay-btn" style="background:#7C3AED" onclick="window.open('${j.url}','_blank')">Check compliance &amp; PCN info <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></button>`:''}
+        ${j.url&&j.noPay?`<button class="pay-btn purple" onclick="window.open('${j.url}','_blank')">Check compliance &amp; PCN info <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></button>`:''}
         <div class="sec-actions">
           <button class="sec-btn sec-paid" onclick="setStatus(${j.id},'paid')"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Mark as paid</button>
           <button class="sec-btn sec-skip" onclick="setStatus(${j.id},'not-needed')"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Not needed</button>
         </div>
       </div>
-      <div class="disclaimer-box"><strong>Compliance note:</strong> ${esc(j.compliance)}. Always verify details before making any payment.</div>
-      <div class="notif-info" style="margin-top:8px">Reminders every 6 hours while pending. Enable notifications in Settings for alerts when app is closed.</div>`
+      <div class="disclaimer-box"><strong>Note:</strong> ${esc(j.compliance)}. Always verify on the official website before paying.</div>
+      <div class="notif-info" style="margin-top:8px">${j.autoDetected?'Detected automatically by GPS. ':'Logged manually. '}Reminder every 6 hours until resolved.</div>`
     :`<div class="action-section">
         <button class="ghost-btn" onclick="setStatus(${j.id},'pending')"><svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>Mark as pending again</button>
         <button class="ghost-btn danger" onclick="del(${j.id})"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>Delete journey</button>
@@ -554,15 +712,15 @@ function rDetail(){
       <div class="screen-header-title">Journey detail</div>
     </div>
     <div class="detail-hero">
-      <div class="detail-type-row">${typeBadge(j.type)}</div>
+      <div style="margin-bottom:6px">${typeBadge(j.type)}${j.autoDetected?'<span style="font-size:9px;color:#60A5FA;padding:2px 6px;border-radius:4px;background:rgba(96,165,250,0.1);margin-left:4px">AUTO-DETECTED</span>':''}</div>
       <div class="detail-name">${esc(j.name)}</div>
       <div class="detail-loc">${esc(j.location)}</div>
       <div class="detail-meta">
-        <div class="meta-box"><div class="meta-lbl">Travelled</div><div class="meta-val">${fmtS(j.date)}</div></div>
+        <div class="meta-box"><div class="meta-lbl">Travelled</div><div class="meta-val" style="font-size:11px">${fmtS(j.date)}</div></div>
         <div class="meta-box"><div class="meta-lbl">Status</div><div style="margin-top:4px">${pillHtml(j.status)}</div></div>
-        <div class="meta-box"><div class="meta-lbl">Deadline rule</div><div class="meta-val" style="font-family:var(--font);font-size:10px">${esc(j.deadlineLabel)||'—'}</div></div>
+        <div class="meta-box"><div class="meta-lbl">Deadline rule</div><div class="meta-val" style="font-family:var(--font);font-size:10px;color:var(--muted)">${esc(j.deadlineLabel)}</div></div>
         ${j.reg?`<div class="meta-box"><div class="meta-lbl">Vehicle reg</div><div class="meta-val">${esc(j.reg)}</div></div>`:''}
-        ${j.notes?`<div class="meta-box" style="grid-column:1/-1"><div class="meta-lbl">Notes</div><div class="meta-val" style="font-family:var(--font);font-size:12px">${esc(j.notes)}</div></div>`:''}
+        ${j.notes?`<div class="meta-box" style="grid-column:1/-1"><div class="meta-lbl">Notes</div><div class="meta-val" style="font-family:var(--font);font-size:12px;color:var(--muted)">${esc(j.notes)}</div></div>`:''}
       </div>
     </div>
     ${statusBlock}
@@ -570,26 +728,24 @@ function rDetail(){
 }
 
 function rZones(){
-  const tolls=LOCATIONS.filter(l=>l.type==='Toll'&&l.name!=='Other toll / zone');
-  const zones=LOCATIONS.filter(l=>l.type==='Zone');
+  const tolls=TOLL_LOCATIONS.filter(l=>l.type==='Toll'&&l.name!=='Other toll / zone');
+  const zones=TOLL_LOCATIONS.filter(l=>l.type==='Zone');
   const tollRows=tolls.map(r=>`
     <div class="journey-row" style="cursor:default">
       <div class="jr-top"><div class="jr-name">${esc(r.name)}</div><span class="type-badge type-toll">Toll</span></div>
-      <div class="jr-sub">${esc(r.location)}</div>
-      <div class="jr-sub" style="margin-top:3px;color:var(--blue-text)">${esc(r.deadlineLabel)}</div>
-      ${r.url?`<div style="margin-top:5px"><button onclick="window.open('${r.url}','_blank')" style="font-size:11px;color:var(--blue-text);background:none;border:none;cursor:pointer;font-family:var(--font);padding:0">Pay portal →</button></div>`:''}
+      <div class="jr-sub">Radius: ${r.radius>=1000?(r.radius/1000).toFixed(1)+'km':r.radius+'m'}</div>
+      <div class="jr-sub" style="margin-top:2px;color:#60A5FA;font-size:10px">${DEADLINE_LABELS[r.deadline]||''}</div>
+      ${r.url?`<div style="margin-top:5px"><button onclick="window.open('${r.url}','_blank')" style="font-size:11px;color:#60A5FA;background:none;border:none;cursor:pointer;font-family:var(--font);padding:0">Pay portal →</button></div>`:''}
     </div>`).join('');
   const zoneRows=zones.map(r=>`
     <div class="journey-row" style="cursor:default">
       <div class="jr-top"><div class="jr-name">${esc(r.name)}</div><span class="type-badge type-zone">Zone</span></div>
-      <div class="jr-sub">${esc(r.location)}</div>
-      <div class="jr-sub" style="margin-top:3px;color:${r.noPay?'var(--purple-text)':'var(--blue-text)'}">${esc(r.compliance).split('.')[0]}</div>
-      <div class="jr-sub" style="margin-top:2px;color:var(--blue-text)">${esc(r.deadlineLabel)}</div>
-      ${r.url?`<div style="margin-top:5px"><button onclick="window.open('${r.url}','_blank')" style="font-size:11px;color:${r.noPay?'var(--purple-text)':'var(--blue-text)'};background:none;border:none;cursor:pointer;font-family:var(--font);padding:0">${r.noPay?'Compliance & PCN info →':'Pay portal →'}</button></div>`:''}</div>`).join('');
+      <div class="jr-sub">Radius: ${r.radius>=1000?(r.radius/1000).toFixed(0)+'km':r.radius+'m'}</div>
+      <div class="jr-sub" style="margin-top:2px;color:${r.noPay?'#C4B5FD':'#60A5FA'};font-size:10px">${esc(r.compliance).split('.')[0]}</div>
+      ${r.url?`<div style="margin-top:5px"><button onclick="window.open('${r.url}','_blank')" style="font-size:11px;color:${r.noPay?'#C4B5FD':'#60A5FA'};background:none;border:none;cursor:pointer;font-family:var(--font);padding:0">${r.noPay?'Compliance & PCN info →':'Pay portal →'}</button></div>`:''}</div>`).join('');
   return`
     <div class="screen-header"><div class="screen-header-title">UK Toll Database</div></div>
-    ${dbStatusHtml()}
-    <div class="disclaimer-box" style="margin:4px 14px 0">Toll rules and payment deadlines may change. Always refer to official sources for current information.</div>
+    <div class="disclaimer-box" style="margin:10px 14px 0">All 25 locations monitored by GPS. Radii match your original app specification.</div>
     <div class="section-label">Toll roads &amp; tunnels (${tolls.length})</div>
     <div class="card">${tollRows}</div>
     <div class="section-label">Charging zones (${zones.length})</div>
@@ -598,11 +754,23 @@ function rZones(){
 
 function rSettings(){
   const tog=(key,on)=>`<button class="toggle ${on?'on':'off'}" onclick="toggleS('${key}')" aria-label="${key}"><div class="toggle-thumb"></div></button>`;
-  const dbTs=localStorage.getItem('tm_db_ts');
-  const dbAge=dbTs?new Date(parseInt(dbTs)).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}):'Never';
+  const notifGranted = 'Notification' in window && Notification.permission === 'granted';
   return`
     <div class="screen-header"><div class="screen-header-title">Settings</div></div>
     <div style="height:8px"></div>
+    <div class="settings-group">
+      <div class="settings-group-lbl">GPS Detection</div>
+      <div class="settings-card">
+        <div class="setting-row">
+          <div class="setting-left"><div class="setting-icon si-green"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></div><div><div class="setting-name">Auto-detect toll roads</div><div class="setting-desc">GPS monitors all 25 UK locations</div></div></div>
+          ${tog('tracking',trackingEnabled)}
+        </div>
+        <div class="setting-row" onclick="gpsState==='denied'?toast('Enable location in browser settings'):requestGPS()">
+          <div class="setting-left"><div class="setting-icon si-${gpsState==='active'?'green':gpsState==='denied'?'red':'amber'}"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></div><div><div class="setting-name">GPS status</div><div class="setting-desc" style="color:${gpsState==='active'?'#86EFAC':gpsState==='denied'?'#FCA5A5':'#FCD34D'}">${gpsState==='active'?'Active — monitoring':'denied'===gpsState?'Blocked — check browser settings':gpsState==='searching'?'Searching...':'Tap to enable'}</div></div></div>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+      </div>
+    </div>
     <div class="settings-group">
       <div class="settings-group-lbl">Notifications</div>
       <div class="settings-card">
@@ -611,20 +779,7 @@ function rSettings(){
           ${tog('notif',settings.notif)}
         </div>
         <div class="setting-row" onclick="reqNotif()">
-          <div class="setting-left"><div class="setting-icon si-blue"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><div><div class="setting-name">Enable browser notifications</div><div class="setting-desc">Tap to request permission</div></div></div>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-        </div>
-      </div>
-    </div>
-    <div class="settings-group">
-      <div class="settings-group-lbl">Database</div>
-      <div class="settings-card">
-        <div class="setting-row" style="cursor:default">
-          <div class="setting-left"><div class="setting-icon si-blue"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div><div><div class="setting-name">Live database</div><div class="setting-desc">Last loaded: ${dbAge}</div></div></div>
-          <span style="font-size:10px;color:${dbStatus==='live'?'var(--green)':dbStatus==='cached'?'var(--amber)':'var(--red)'};font-weight:600">${dbStatus.toUpperCase()}</span>
-        </div>
-        <div class="setting-row" onclick="refreshDB()">
-          <div class="setting-left"><div class="setting-icon si-amber"><svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg></div><div><div class="setting-name">Refresh database now</div><div class="setting-desc">Check for new toll roads</div></div></div>
+          <div class="setting-left"><div class="setting-icon si-${notifGranted?'green':'amber'}"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><div><div class="setting-name">Browser notifications</div><div class="setting-desc" style="color:${notifGranted?'#86EFAC':'#FCD34D'}">${notifGranted?'Granted ✓':'Tap to enable'}</div></div></div>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--hint)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
         </div>
       </div>
@@ -646,48 +801,60 @@ function rSettings(){
       <div class="settings-group-lbl">Data</div>
       <div class="settings-card">
         <div class="setting-row" onclick="clearData()">
-          <div class="setting-left"><div class="setting-icon si-red"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg></div><div><div class="setting-name">Clear all journeys</div><div class="setting-desc" style="color:var(--red)">Cannot be undone</div></div></div>
+          <div class="setting-left"><div class="setting-icon si-red"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg></div><div><div class="setting-name">Clear all journeys</div><div class="setting-desc" style="color:#FCA5A5">Cannot be undone</div></div></div>
         </div>
         <div class="setting-row" style="cursor:default">
-          <div class="setting-left"><div class="setting-icon si-gray"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><div><div class="setting-name">Toll Mate v1.0</div><div class="setting-desc">Journey data stored on device only</div></div></div>
+          <div class="setting-left"><div class="setting-icon si-gray"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><div><div class="setting-name">Toll Mate v2.0</div><div class="setting-desc">25 UK locations · GPS auto-detection</div></div></div>
         </div>
       </div>
     </div>`;
 }
 
-const TC=`<div class="legal-text"><strong>Introduction</strong><br>These Terms and Conditions govern the use of the Toll Mate application. By using this application you agree to be bound by these terms.</div>
-<div class="legal-text"><strong>Service Description</strong><br>Toll Mate provides location-based reminders relating to toll roads, tunnels and charging zones. The information provided is for guidance only and does not constitute legal or financial advice.</div>
+const TC_HTML=`
+<div class="legal-text"><strong>Introduction</strong><br>These Terms and Conditions govern the use of the Toll Mate application. By using this application you agree to be bound by these terms.</div>
+<div class="legal-text"><strong>Service Description</strong><br>Toll Mate provides GPS-based reminders relating to toll roads, tunnels and charging zones. The information provided is for guidance only and does not constitute legal or financial advice.</div>
 <div class="legal-text"><strong>No Guarantee of Accuracy</strong><br>The application does not guarantee the accuracy, completeness or timeliness of any information including toll locations, charges, deadlines or compliance requirements.</div>
 <div class="legal-text"><strong>User Responsibility</strong><br>Users remain solely responsible for ensuring that all applicable tolls, charges and fees are identified and paid within required timeframes.</div>
-<div class="legal-text"><strong>Limitation of Liability</strong><br>To the fullest extent permitted by law, Toll Mate and its developers shall not be liable for any direct, indirect, incidental, consequential or punitive damages including fines, penalties or charges arising from use or inability to use the application.</div>
+<div class="legal-text"><strong>Vehicle Compliance</strong><br>The application does not determine whether a vehicle is compliant with emissions or regulatory requirements. Users must verify compliance using official sources.</div>
+<div class="legal-text"><strong>Failure of Service</strong><br>The application may fail to detect toll roads or charging zones due to GPS inaccuracies, device limitations, software issues or external factors. No liability is accepted for missed detections.</div>
+<div class="legal-text"><strong>Limitation of Liability</strong><br>To the fullest extent permitted by law Toll Mate and its developers shall not be liable for any direct, indirect, incidental, consequential or punitive damages including fines, penalties or charges.</div>
 <div class="legal-text"><strong>Governing Law</strong><br>These terms shall be governed by and interpreted in accordance with the laws of England and Wales.</div>`;
 
-const GDPR=`<div class="legal-text"><strong>Data Collection</strong><br>Toll Mate does not collect or transmit personal data. Location data is not stored or sent to any server.</div>
-<div class="legal-text"><strong>Journey Data</strong><br>All journey records are stored locally on your device only and are never transmitted externally.</div>
-<div class="legal-text"><strong>Database Updates</strong><br>The toll road database is fetched from a public Google Sheet. No personal data is sent during this process.</div>
+const GDPR_HTML=`
+<div class="legal-text"><strong>Data Collection</strong><br>Toll Mate uses device location data to detect toll roads and charging zones. Location data is processed on-device only and is never transmitted to any server.</div>
+<div class="legal-text"><strong>Personal Data</strong><br>Toll Mate does not require account creation and does not collect name, email or address.</div>
+<div class="legal-text"><strong>Location Data</strong><br>Location data is used solely to detect toll roads and zones. It remains on your device and is never shared with third parties.</div>
+<div class="legal-text"><strong>Journey Data</strong><br>All journey records are stored locally on your device. No journey data is transmitted externally.</div>
 <div class="legal-text"><strong>User Rights</strong><br>You can delete all data at any time via Settings. As no personal data is stored on external servers, your rights are limited to device-level controls.</div>
-<div class="legal-text"><strong>Jurisdiction</strong><br>This policy is intended to comply with the UK GDPR and Data Protection Act 2018.</div>`;
+<div class="legal-text"><strong>Children</strong><br>This application is not intended for use by children under the age of 16.</div>
+<div class="legal-text"><strong>Jurisdiction</strong><br>This policy complies with the UK GDPR and Data Protection Act 2018.</div>`;
 
-function rTC(){return`<div class="screen-header"><button class="back-btn" onclick="go('settings')" aria-label="Back"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button><div class="screen-header-title">Terms &amp; Conditions</div></div><div class="legal-text-block">${TC}</div>`;}
-function rGDPR(){return`<div class="screen-header"><button class="back-btn" onclick="go('settings')" aria-label="Back"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button><div class="screen-header-title">Privacy Policy &amp; GDPR</div></div><div class="legal-text-block">${GDPR}</div>`;}
+function rTC(){return`<div class="screen-header"><button class="back-btn" onclick="go('settings')" aria-label="Back"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button><div class="screen-header-title">Terms &amp; Conditions</div></div><div class="legal-text-block">${TC_HTML}</div>`;}
+function rGDPR(){return`<div class="screen-header"><button class="back-btn" onclick="go('settings')" aria-label="Back"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button><div class="screen-header-title">Privacy Policy &amp; GDPR</div></div><div class="legal-text-block">${GDPR_HTML}</div>`;}
 
 function setF(f){filter=f;render();}
-function toggleS(key){if(key==='notif')settings.notif=!settings.notif;saveS(settings);render();}
-function clearData(){if(confirm('Delete all journeys? This cannot be undone.')){journeys=[];save(journeys);toast('All journeys deleted');go('dashboard');}}
-async function refreshDB(){
-  toast('Refreshing database...');
-  dbStatus='loading';
-  render();
-  await loadDatabase();
-  toast(dbStatus==='live'?'Database updated ✓':'Using cached data');
+function toggleS(key){
+  if(key==='notif'){settings.notif=!settings.notif;saveS(settings);}
+  if(key==='tracking'){
+    if(trackingEnabled){disableGPS();}else{requestGPS();}
+    trackingEnabled=!trackingEnabled;
+    settings.tracking=trackingEnabled;saveS(settings);
+  }
   render();
 }
+function clearData(){if(confirm('Delete all journeys? This cannot be undone.')){journeys=[];save(journeys);Object.values(reminderTimers).forEach(clearTimeout);reminderTimers={};toast('All journeys deleted');go('dashboard');}}
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
-(async()=>{
-  await loadDatabase();
-  render();
-})();
+render();
+reqNotif();
+if(trackingEnabled){
+  setTimeout(startGPSEngine, 500);
+}
+
+// iOS install banner
+if(/iphone|ipad|ipod/i.test(navigator.userAgent)&&!window.navigator.standalone){
+  setTimeout(()=>toast('Tip: Share → Add to Home Screen for best experience'),3000);
+}
 </script>
 </body>
 </html>
