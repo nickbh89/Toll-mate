@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support — Toll Mate</title>
+<meta name="description" content="Get help with Toll Mate, report a problem or request a feature.">
+<meta name="theme-color" content="#111318">
+<meta property="og:title" content="Support — Toll Mate">
+<meta property="og:description" content="Get help with Toll Mate, report a problem or request a feature.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tollmate.bhapps.co.uk/">
+<meta property="og:image" content="https://tollmate.bhapps.co.uk/assets/icon.png">
+<link rel="icon" type="image/png" href="assets/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="assets/icon.png" alt="" width="32" height="32">Toll Mate</a>
+    <nav aria-label="Primary">
+      <a href="index.html#how">How it works</a>
+      <a href="index.html#coverage">Coverage</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="support.html">Support</a>
+      <a class="btn" href="https://play.google.com/store/apps/details?id=com.tollmate.app">Get it on Google Play</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+
+<div class="page"><div class="wrap">
+  <h1>Support</h1>
+  <p class="updated">Toll Mate is built and supported by one person, so replies are quick but not instant.</p>
+  <p>Found a bug, spotted a missed detection, or want something added? Send it through the form or email <a href="mailto:hello@bhapps.co.uk">hello@bhapps.co.uk</a>. For detection problems, the date, time and rough location make a report much easier to act on.</p>
+  
+  <h2>Contact form</h2>
+  <form name="support" method="POST" action="thanks.html" data-netlify="true" netlify-honeypot="company">
+    <input type="hidden" name="form-name" value="support">
+    <input type="hidden" name="app" value="Toll Mate">
+    <p class="hp"><label>Don't fill this in: <input name="company"></label></p>
+    <label>Your name <input name="name" autocomplete="name" required></label>
+    <label>Email <input type="email" name="email" autocomplete="email" required></label>
+    <label>Topic <select name="topic"><option>Bug report</option><option>Missed or false detection</option><option>Suggest a toll or zone</option><option>Feature request</option><option>Privacy question</option><option>Something else</option></select></label>
+    <label>Message <textarea name="message" required></textarea></label>
+    <div><button class="btn" type="submit">Send</button></div>
+  </form>
+  <h2>Delete your data</h2>
+  <p>Toll Mate keeps nothing about you on a server. Uninstalling the app removes everything it stored on your phone. See the <a href="privacy.html">privacy policy</a> for details.</p>
+</div></div>
+</main>
+<footer>
+  <div class="wrap">
+    <div class="co"><span class="bh">BH</span> Toll Mate is made by <a href="https://bhapps.co.uk">BH Apps</a> · © 2026 BH Apps</div>
+    <div class="links">
+      <a href="privacy.html">Privacy</a>
+      <a href="support.html">Support</a>
+      <a href="https://ko-fi.com/nickbradshawhughes" rel="noopener">Leave a tip</a>
+      <a href="https://parkmate.bhapps.co.uk" rel="noopener">ParkMate</a>
+      <a href="https://github.com/nickbh89/Toll-mate" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
